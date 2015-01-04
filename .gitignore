@@ -1,0 +1,43 @@
+######################
+# Java binaries
+######################
+*.class
+*.jar
+*.war
+*.ear
+*.db
+######################
+# Directories
+######################
+target/
+generated-java/
+build/
+node/
+node_modules/
+**/bower_components/
+######################
+# Eclipse
+######################
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+.classpath
+.settings/
+######################
+# IntelliJ IDEA
+######################
+.idea/
+*.iml
+######################
+# Windows
+######################
+Thumbs.db
+Desktop.ini
+######################
+# OS X
+######################
+.DS_Store
