@@ -33,18 +33,19 @@ module.exports = function (grunt) {
                     stripBanners: {
                         block: true
                     },
-                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Third party JS - ' +
+                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Core JS - ' +
                     '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
                 },
                 src: [
                     '<%= dirs.bowerRes %>/jquery/dist/jquery.min.js',
-                    '<%= dirs.bowerRes %>/bootstrap/dist/js/bootstrap.min.js',
-                    '<%= dirs.bowerRes %>/iCheck/icheck.min.js',
+                    '<%= dirs.bowerRes %>/hammerjs/hammer.min.js',
                     '<%= dirs.bowerRes %>/angular/angular.min.js',
                     '<%= dirs.bowerRes %>/angular-route/angular-route.min.js',
                     '<%= dirs.bowerRes %>/angular-messages/angular-messages.min.js',
                     '<%= dirs.bowerRes %>/angular-resource/angular-resource.min.js',
-                    '<%= dirs.bowerRes %>/angular-bootstrap/ui-bootstrap-tpls.min.js'
+                    '<%= dirs.bowerRes %>/angular-animate/angular-animate.min.js',
+                    '<%= dirs.bowerRes %>/angular-aria/angular-aria.js',
+                    '<%= dirs.bowerRes %>/angular-material/angular-material.min.js'
                 ],
                 dest: '<%= dirs.target %>/js/js-core.min.js'
             },
@@ -53,50 +54,16 @@ module.exports = function (grunt) {
                     stripBanners: {
                         block: true
                     },
-                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Third party CSS - ' +
+                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Core CSS - ' +
                     '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
                 },
                 src: [
-                    '<%= dirs.bowerRes %>/bootstrap/dist/css/bootstrap.min.css',
-                    '<%= dirs.bowerRes %>/font-awesome/css/font-awesome.min.css'
+                    '<%= dirs.bowerRes %>/angular-material/angular-material.min.css'
                 ],
                 dest: '<%= dirs.target %>/css/css-core.min.css'
-            },
-            cssTheme: {
-                options: {
-                    stripBanners: {
-                        block: true
-                    },
-                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Theme CSS - ' +
-                    '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
-                },
-                src: [
-                    '<%= dirs.bowerRes %>/iCheck/skins/minimal/grey.css',
-                    '<%= dirs.target %>/css/theme/styles.css',
-                    '<%= dirs.target %>/css/theme/styles-responsive.css',
-                    '<%= dirs.target %>/css/theme/plugins.css',
-                    '<%= dirs.target %>/css/theme/incoming.css'
-                ],
-                dest: '<%= dirs.target %>/css/css-theme.css'
-            }
-        },
-
-        copy: {
-            fonts: {
-                files: [
-                    {
-                        expand: true,
-                        flatten: true,
-                        src: [
-                            '<%= dirs.bowerRes %>/bootstrap/dist/fonts/*',
-                            '<%= dirs.bowerRes %>/font-awesome/fonts/*'
-                        ],
-                        dest: '<%= dirs.target %>/fonts',
-                        filter: 'isFile'
-                    }
-                ]
             }
         }
+
     });
 
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -106,5 +73,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['concat:jsCore', 'concat:cssCore', 'concat:cssTheme', 'copy:fonts', 'copy:img']);
+    grunt.registerTask('default', ['concat:jsCore', 'concat:cssCore']);
 };

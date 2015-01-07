@@ -3,14 +3,11 @@
   "version": "0.0.1",
   "dependencies": {
     "jquery": "latest",
-    "bootstrap": "latest",
-    "iCheck": "latest",
     "angular": "latest",
     "angular-messages": "latest",
     "angular-route": "latest",
     "angular-resource": "latest",
-    "angular-bootstrap": "latest",
-    "font-awesome": "latest"
+    "angular-material": "latest"
   },
   "resolutions": {
     "jquery": "2.1.3",
