@@ -3,6 +3,7 @@ var homeApp = angular.module('homeApp', []),
 
 qpqApp.config(function ($routeProvider) {
     "use strict";
+    console.log("test");
     $routeProvider
         .when('/', {
             controller: 'HomeController as home',

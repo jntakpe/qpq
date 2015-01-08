@@ -1,5 +1,5 @@
 homeApp.controller('HomeController', [HomeController]);
 
 function HomeController() {
-    this.btn = 'Coucou';
+    this.btn = 'Test watch';
 }

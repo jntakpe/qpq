@@ -13,7 +13,8 @@ module.exports = function (grunt) {
         bowerrc: grunt.file.readJSON('.bowerrc'),
         dirs: {
             bowerRes: '<%= bowerrc.directory %>',
-            target: 'src/main/webapp/static'
+            source: 'src/main/webapp/static',
+            target: 'src/main/webapp/dist'
         },
         bower: {
             install: {
@@ -28,7 +29,7 @@ module.exports = function (grunt) {
             }
         },
         concat: {
-            jsCore: {
+            jsThirdParty: {
                 options: {
                     stripBanners: {
                         block: true
@@ -47,9 +48,9 @@ module.exports = function (grunt) {
                     '<%= dirs.bowerRes %>/angular-aria/angular-aria.js',
                     '<%= dirs.bowerRes %>/angular-material/angular-material.min.js'
                 ],
-                dest: '<%= dirs.target %>/js/js-core.min.js'
+                dest: '<%= dirs.target %>/js/third-party.min.js'
             },
-            cssCore: {
+            cssThirdParty: {
                 options: {
                     stripBanners: {
                         block: true
@@ -60,18 +61,35 @@ module.exports = function (grunt) {
                 src: [
                     '<%= dirs.bowerRes %>/angular-material/angular-material.min.css'
                 ],
-                dest: '<%= dirs.target %>/css/css-core.min.css'
+                dest: '<%= dirs.target %>/css/third-party.min.css'
+            },
+            coreJs: {
+                src: [
+                    '<%= dirs.source %>/js/qpq.js',
+                    '<%= dirs.source %>/js/home/home.controller.js'
+                ],
+                dest: '<%= dirs.target %>/js/core.js'
+            }
+        },
+        watch: {
+            js: {
+                files: '<%= dirs.source %>/js/**/*.js',
+                tasks: ['concat:coreJs']
+            },
+            css: {
+                files: '<%= dirs.source %>/css/**/*.css',
+                tasks: ['concat:coreCss']
             }
         }
-
     });
 
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['concat:jsCore', 'concat:cssCore']);
+    grunt.registerTask('default', ['concat:jsThirdParty', 'concat:cssThirdParty', 'concat:coreJs']);
 };
