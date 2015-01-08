@@ -1,5 +1,13 @@
 var homeApp = angular.module('homeApp', []),
-    qpqApp = angular.module('qpqApp', ['ngMessages', 'ngRoute', 'ngResource', 'ngMaterial', 'homeApp']);
+    barsApp = angular.module('barsApp', []),
+    qpqApp = angular.module('qpqApp', [
+        'ngMessages',
+        'ngRoute',
+        'ngResource',
+        'ngMaterial',
+        'homeApp',
+        'barsApp'
+    ]);
 
 qpqApp.config(function ($routeProvider) {
     "use strict";

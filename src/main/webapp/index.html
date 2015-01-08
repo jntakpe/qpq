@@ -12,7 +12,17 @@
     <link rel="stylesheet" href="dist/css/third-party.min.css"/>
     <link rel="stylesheet" href="dist/css/core.css"/>
 </head>
-<body ng-app="qpqApp">
+<body ng-app="qpqApp" ng-controller="BarsController as bars" layout="row" flex>
+
+<md-sidenav layout="column">
+    Hahahah
+</md-sidenav>
+
+<md-toolbar>
+    <h2 class="md-toolbar-tools">
+        Qui paie quoi ?
+    </h2>
+</md-toolbar>
 
 <!-- Angular views -->
 <div ng-view></div>
