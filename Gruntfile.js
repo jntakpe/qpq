@@ -91,6 +91,19 @@ module.exports = function (grunt) {
                         filter: 'isFile'
                     }
                 ]
+            },
+            img: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= dirs.source %>/img/',
+                        src: [
+                            '**'
+                        ],
+                        dest: '<%= dirs.target %>/img',
+                        filter: 'isFile'
+                    }
+                ]
             }
         },
         watch: {
@@ -115,6 +128,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerTask('default', [
-        'clean', 'concat:jsThirdParty', 'concat:cssThirdParty', 'concat:coreJs', 'concat:coreCss', 'copy:icons'
+        'clean', 'concat:jsThirdParty', 'concat:cssThirdParty', 'concat:coreJs', 'concat:coreCss', 'copy:icons',
+        'copy:img'
     ]);
 };
