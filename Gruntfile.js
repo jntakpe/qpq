@@ -70,6 +70,12 @@ module.exports = function (grunt) {
                     '<%= dirs.source %>/js/home/home.controller.js'
                 ],
                 dest: '<%= dirs.target %>/js/core.js'
+            },
+            coreCss: {
+                src: [
+                    '<%= dirs.source %>/css/qpq.css'
+                ],
+                dest: '<%= dirs.target %>/css/core.css'
             }
         },
         watch: {
@@ -92,5 +98,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['concat:jsThirdParty', 'concat:cssThirdParty', 'concat:coreJs']);
+    grunt.registerTask('default', ['concat:jsThirdParty', 'concat:cssThirdParty', 'concat:coreJs', 'concat:coreCss']);
 };
