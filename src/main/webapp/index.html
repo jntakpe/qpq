@@ -14,7 +14,8 @@
 </head>
 <body ng-app="qpqApp" ng-controller="BarsController as bars" layout="row" flex>
 
-<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-is-locked-open="$media('gt-sm')">
+<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+            md-is-locked-open="$media('gt-md')">
     <md-toolbar class="md-default-theme">
         <h1 class="md-toolbar-tools" layout="column" flex>
             <a href="#/" layout="row" id="app-title">
@@ -36,7 +37,13 @@
 
 <div role="main" layout="column" layout-fill>
     <md-toolbar class="md-default-theme" layout="column">
-
+        <div class="md-toolbar-tools" layout="column" flex>
+            <div layout="row" flex>
+                <button ng-click="bars.toggleLeft()" class="menu-icon" hide-gt-sm aria-label="Toggle Menu" style="position: relative; top: -5px;">
+                    <md-icon icon="dist/img/icons/navigation/svg/production/ic_menu_24px.svg"></md-icon>
+                </button>
+            </div>
+        </div>
     </md-toolbar>
     <md-content class="md-padding md-default-theme" flex>
         <!-- Angular views -->

@@ -78,6 +78,21 @@ module.exports = function (grunt) {
                 dest: '<%= dirs.target %>/css/core.css'
             }
         },
+        copy: {
+            icons: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: '<%= dirs.bowerRes %>/material-design-icons/',
+                        src: [
+                            '**/production/*.svg'
+                        ],
+                        dest: '<%= dirs.target %>/img/icons',
+                        filter: 'isFile'
+                    }
+                ]
+            }
+        },
         watch: {
             js: {
                 files: '<%= dirs.source %>/js/**/*.js',
@@ -87,16 +102,19 @@ module.exports = function (grunt) {
                 files: '<%= dirs.source %>/css/**/*.css',
                 tasks: ['concat:coreCss']
             }
-        }
+        },
+        clean: ['<%= dirs.target %>/']
     });
 
+    grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    grunt.registerTask('default', ['concat:jsThirdParty', 'concat:cssThirdParty', 'concat:coreJs', 'concat:coreCss']);
+    grunt.registerTask('default', [
+        'clean', 'concat:jsThirdParty', 'concat:cssThirdParty', 'concat:coreJs', 'concat:coreCss', 'copy:icons'
+    ]);
 };

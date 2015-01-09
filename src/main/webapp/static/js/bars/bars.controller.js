@@ -1,5 +1,9 @@
-barsApp.controller('BarsController', [BarsController]);
+barsApp.controller('BarsController', ['$mdSidenav', BarsController]);
 
-function BarsController() {
-    this.msg = 'test';
+function BarsController($mdSidenav) {
+
+    this.toggleLeft = function () {
+        $mdSidenav('left').toggle();
+    };
+
 }

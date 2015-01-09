@@ -7,7 +7,8 @@
     "angular-messages": "latest",
     "angular-route": "latest",
     "angular-resource": "latest",
-    "angular-material": "latest"
+    "angular-material": "latest",
+    "material-design-icons": "latest"
   },
   "resolutions": {
     "jquery": "2.1.3",
