@@ -1,0 +1,9 @@
+#app-title .title-logo {
+    width: 40px;
+    height: 40px;
+}
+
+#app-title .text-logo {
+    line-height: 40px;
+    text-indent: 10px;
+}
