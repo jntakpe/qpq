@@ -18,7 +18,13 @@ qpqApp.config(function ($routeProvider) {
         })
         .otherwise({
             controller: 'HomeController as home',
-            templateUrl: 'views/home.html'
+            templateUrl: 'views/home.html',
+            title: 'Gérer ces dépenses entre amis'
         })
-});
+}).run(['$rootScope', function ($rootScope) {
+    "use strict";
+    $rootScope.$on('$routeChangeSuccess', function (event, current) {
+        $rootScope.title = current.$$route.title || 'Gérer ces dépenses entre amis';
+    });
+}]);
 

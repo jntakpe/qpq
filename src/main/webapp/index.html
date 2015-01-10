@@ -31,10 +31,16 @@
 <div role="main" layout="column" layout-fill>
     <md-toolbar class="md-default-theme" layout="column">
         <div class="md-toolbar-tools" layout="column" flex>
-            <div layout="row" flex>
-                <button ng-click="bars.toggleLeft()" class="menu-icon" hide-gt-md aria-label="Toggle Menu" style="position: relative; top: -5px;">
+            <div layout="row">
+                <button ng-click="bars.toggleLeft()" class="menu-icon" hide-gt-md aria-label="Toggle Menu">
                     <md-icon icon="dist/img/icons/navigation/svg/production/ic_menu_24px.svg"></md-icon>
                 </button>
+            </div>
+            <div flex>{{title}}</div>
+            <div>
+                <md-button class="md-raised md-button md-default-theme md-primary">Connexion</md-button>
+
+                <md-button class="md-raised md-button md-default-theme md-warn">Créer un compte</md-button>
             </div>
         </div>
     </md-toolbar>

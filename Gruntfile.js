@@ -112,7 +112,7 @@ module.exports = function (grunt) {
                 tasks: ['concat:coreJs']
             },
             css: {
-                files: '<%= dirs.source %>/css/**/*.css',
+                files: '<%= dirs.source %>/css/*.css',
                 tasks: ['concat:coreCss']
             }
         },
