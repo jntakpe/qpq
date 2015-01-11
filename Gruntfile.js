@@ -66,6 +66,7 @@ module.exports = function (grunt) {
             coreJs: {
                 src: [
                     '<%= dirs.source %>/js/qpq.js',
+                    '<%= dirs.source %>/js/fastsplit/fastsplit.controller.js',
                     '<%= dirs.source %>/js/bars/bars.controller.js',
                     '<%= dirs.source %>/js/home/home.controller.js'
                 ],
