@@ -27,8 +27,10 @@ qpqApp.config(function ($routeProvider) {
 }).run(['$rootScope', function ($rootScope) {
     "use strict";
     $rootScope.$on('$routeChangeSuccess', function (event, current) {
-        console.log(current);
-        $rootScope.title = current.$$route.title || 'Gérer ces dépenses entre amis';
+        $rootScope.title = 'Gérer ces dépenses entre amis';
+        if (current.$$route && current.$$route.title) {
+            $rootScope.title = current.$$route.title;
+        }
     });
 }]);
 
