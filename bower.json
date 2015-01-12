@@ -3,12 +3,11 @@
   "version": "0.0.1",
   "dependencies": {
     "jquery": "latest",
+    "boostrap": "latest",
     "angular": "latest",
     "angular-messages": "latest",
     "angular-route": "latest",
-    "angular-resource": "latest",
-    "angular-material": "latest",
-    "material-design-icons": "latest"
+    "angular-resource": "latest"
   },
   "resolutions": {
     "jquery": "2.1.3",

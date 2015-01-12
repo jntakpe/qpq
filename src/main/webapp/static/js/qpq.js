@@ -17,7 +17,7 @@ qpqApp.config(function ($routeProvider) {
         .when('/fastsplit', {
             controller: 'FastSplitController as fastSplit',
             templateUrl: 'views/fast-split.html',
-            title: 'Some title'
+            title: 'Gérer mes comptes'
         })
         .otherwise({
             controller: 'HomeController as home',
