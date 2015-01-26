@@ -15,7 +15,8 @@ build/
 node/
 node_modules/
 **/bower_components/
-webapp/dist/
+src/main/webapp/dist/
+out/
 ######################
 # Eclipse
 ######################
