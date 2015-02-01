@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "jquery": "latest",
-    "boostrap": "latest",
+    "bootstrap": "latest",
     "font-awesome": "latest",
     "angular": "latest",
     "angular-messages": "latest",
