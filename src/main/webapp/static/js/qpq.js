@@ -1,36 +1,21 @@
 var homeApp = angular.module('homeApp', []),
-    barsApp = angular.module('barsApp', []),
-    fastSplitApp = angular.module('fastSplitApp', []),
     qpqApp = angular.module('qpqApp', [
         'ngMessages',
         'ngRoute',
         'ngResource',
-        'ngMaterial',
-        'homeApp',
-        'barsApp',
-        'fastSplitApp'
+        'homeApp'
     ]);
 
 qpqApp.config(function ($routeProvider) {
     "use strict";
     $routeProvider
-        .when('/fastsplit', {
-            controller: 'FastSplitController as fastSplit',
-            templateUrl: 'views/fast-split.html',
-            title: 'Gérer mes comptes'
+        .when('/someuri', {
+            controller: 'SomeController as some',
+            templateUrl: 'views/some-page.html'
         })
         .otherwise({
             controller: 'HomeController as home',
-            templateUrl: 'views/home.html',
-            title: 'Gérer ces dépenses entre amis'
+            templateUrl: 'views/home.html'
         })
-}).run(['$rootScope', function ($rootScope) {
-    "use strict";
-    $rootScope.$on('$routeChangeSuccess', function (event, current) {
-        $rootScope.title = 'Gérer ces dépenses entre amis';
-        if (current.$$route && current.$$route.title) {
-            $rootScope.title = current.$$route.title;
-        }
-    });
-}]);
+});
 

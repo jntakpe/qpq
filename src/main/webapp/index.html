@@ -12,44 +12,8 @@
     <link rel="stylesheet" href="dist/css/third-party.min.css"/>
     <link rel="stylesheet" href="dist/css/core.css"/>
 </head>
-<body ng-app="qpqApp" ng-controller="BarsController as bars" layout="row" flex>
+<body ng-app="qpqApp">
 
-<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
-            md-is-locked-open="$media('gt-md')">
-    <md-toolbar class="md-default-theme">
-        <h1 class="md-toolbar-tools" layout="column" flex>
-            <a href="#/" layout="row" id="app-title">
-                <img src="dist/img/angular_logo.svg" alt="Angular Logo" class="title-logo"/>
-                <div class="text-logo" flex>
-                    Qui paie quoi
-                </div>
-            </a>
-        </h1>
-    </md-toolbar>
-</md-sidenav>
-
-<div role="main" layout="column" layout-fill>
-    <md-toolbar class="md-default-theme" layout="column">
-        <div class="md-toolbar-tools" layout="column" flex>
-            <div layout="row">
-                <button ng-click="bars.toggleLeft()" class="menu-icon" hide-gt-md aria-label="Toggle Menu">
-                    <md-icon icon="dist/img/icons/navigation/svg/production/ic_menu_24px.svg"></md-icon>
-                </button>
-            </div>
-            <div flex>{{title}}</div>
-            <div>
-                <md-button class="md-raised md-button md-default-theme md-primary">Connexion</md-button>
-
-                <md-button class="md-raised md-button md-default-theme md-warn">Créer un compte</md-button>
-            </div>
-        </div>
-    </md-toolbar>
-    <md-content class="md-padding md-default-theme" flex>
-        <!-- Angular views -->
-        <div ng-view></div>
-        <!-- End Angular views -->
-    </md-content>
-</div>
 
 <script src="dist/js/third-party.min.js"></script>
 <script src="dist/js/core.js"></script>

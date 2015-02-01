@@ -4,13 +4,10 @@
   "dependencies": {
     "jquery": "latest",
     "boostrap": "latest",
+    "font-awesome": "latest",
     "angular": "latest",
     "angular-messages": "latest",
     "angular-route": "latest",
     "angular-resource": "latest"
-  },
-  "resolutions": {
-    "jquery": "2.1.3",
-    "angular": "1.3.8"
   }
 }

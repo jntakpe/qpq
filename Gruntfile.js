@@ -39,14 +39,11 @@ module.exports = function (grunt) {
                 },
                 src: [
                     '<%= dirs.bowerRes %>/jquery/dist/jquery.min.js',
-                    '<%= dirs.bowerRes %>/hammerjs/hammer.min.js',
                     '<%= dirs.bowerRes %>/angular/angular.min.js',
                     '<%= dirs.bowerRes %>/angular-route/angular-route.min.js',
                     '<%= dirs.bowerRes %>/angular-messages/angular-messages.min.js',
                     '<%= dirs.bowerRes %>/angular-resource/angular-resource.min.js',
-                    '<%= dirs.bowerRes %>/angular-animate/angular-animate.min.js',
-                    '<%= dirs.bowerRes %>/angular-aria/angular-aria.js',
-                    '<%= dirs.bowerRes %>/angular-material/angular-material.min.js'
+                    '<%= dirs.bowerRes %>/angular-resource/angular-resource.min.js'
                 ],
                 dest: '<%= dirs.target %>/js/third-party.min.js'
             },
