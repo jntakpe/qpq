@@ -22,7 +22,6 @@ public class QpqConfig extends SpringBootServletInitializer {
 
     private static final Logger LOG = LoggerFactory.getLogger(QpqConfig.class);
 
-
     /**
      * Démarre l'application en mode 'embedded'
      *
