@@ -1,0 +1,14 @@
+management:
+  context-path: /manage
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qpq
+    username: postgres
+    password: sopra*
+    driverClassName: org.postgresql.Driver
