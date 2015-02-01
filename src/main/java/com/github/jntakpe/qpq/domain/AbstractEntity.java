@@ -6,6 +6,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +16,7 @@ import java.util.Date;
  * @author jntakpe
  */
 @MappedSuperclass
-public abstract class AbstractEntity {
+public abstract class AbstractEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +25,11 @@ public abstract class AbstractEntity {
     @Version
     private Integer version;
 
+    @NotNull
     @CreatedBy
     private String createdBy;
 
+    @NotNull
     @CreatedDate
     @Temporal(TemporalType.DATE)
     private Date createdDate = new Date();
