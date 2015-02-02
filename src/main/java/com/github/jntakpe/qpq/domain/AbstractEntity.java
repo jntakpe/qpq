@@ -25,17 +25,19 @@ public abstract class AbstractEntity implements Serializable {
     @Version
     private Integer version;
 
+    //FIXME to replace by Spring Security current user
     @NotNull
     @CreatedBy
-    private String createdBy;
+    private String createdBy = "Anonymous";
 
     @NotNull
     @CreatedDate
     @Temporal(TemporalType.DATE)
     private Date createdDate = new Date();
 
+    //FIXME to replace by Spring Security current user
     @LastModifiedBy
-    private String lastModifiedBy;
+    private String lastModifiedBy = "Anonymous";
 
     @LastModifiedDate
     private Date lastModifiedDate = new Date();
