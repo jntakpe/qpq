@@ -19,6 +19,10 @@ import java.io.Serializable;
 @Table(name = "T_AUTHORITY")
 public class Authority implements Serializable {
 
+    public static final String ROLE_USER = "ROLE_USER";
+
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
+
     @Id
     @NotNull
     @Size(min = 0, max = 50)
@@ -41,7 +45,6 @@ public class Authority implements Serializable {
         Authority authority = (Authority) o;
 
         return !(name != null ? !name.equals(authority.name) : authority.name != null);
-
     }
 
     @Override
