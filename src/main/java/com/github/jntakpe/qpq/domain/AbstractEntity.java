@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Classe abstraite modélisant les colonnes comunes de chaque table
+ * Classe abstraite modélisant les colonnes communes de chaque table
  *
  * @author jntakpe
  */

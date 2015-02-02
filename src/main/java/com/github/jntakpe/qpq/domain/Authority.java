@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author jntakpe
  */
 @Entity
-@Table(name = "T_AUTHORITY")
+@Table(name = "t_authority")
 public class Authority implements Serializable {
 
     public static final String ROLE_USER = "ROLE_USER";

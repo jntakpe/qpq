@@ -17,7 +17,7 @@ import java.util.Set;
  * @author jntakpe
  */
 @Entity
-@Table(name = "T_USER")
+@Table(name = "t_user")
 public class User extends AbstractEntity {
 
     @NotNull
