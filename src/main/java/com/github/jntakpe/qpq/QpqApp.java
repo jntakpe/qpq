@@ -1,30 +1,23 @@
-package com.github.jntakpe.qpq.config;
+package com.github.jntakpe.qpq;
 
+import com.github.jntakpe.qpq.config.Constants;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.boot.orm.jpa.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
- * Classe principale de configuration de l'application
+ * Classe démarrant l'application Spring Boot
  *
  * @author jntakpe
  */
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan("com.github.jntakpe.qpq")
-@EntityScan("com.github.jntakpe.qpq.domain")
-@EnableJpaRepositories("com.github.jntakpe.qpq.repository")
-public class QpqConfig extends SpringBootServletInitializer {
+@SpringBootApplication
+public class QpqApp extends SpringBootServletInitializer {
 
-    private static final Logger LOG = LoggerFactory.getLogger(QpqConfig.class);
+    private static final Logger LOG = LoggerFactory.getLogger(QpqApp.class);
 
     /**
      * Démarre l'application en mode 'embedded'
@@ -33,7 +26,7 @@ public class QpqConfig extends SpringBootServletInitializer {
      */
     public static void main(String[] args) {
         LOG.info("Démarrage de l'application en mode 'embedded'");
-        new SpringApplication(QpqConfig.class).run(args);
+        new SpringApplication(QpqApp.class).run(args);
     }
 
     /**
@@ -48,7 +41,7 @@ public class QpqConfig extends SpringBootServletInitializer {
         String profile = SystemUtils.IS_OS_LINUX ? Constants.PROD_PROFILE : Constants.DEV_PROFILE;
         LOG.info("Profil '{}' sélectionné", profile);
         application.profiles(profile);
-        return application.sources(QpqConfig.class);
+        return application.sources(QpqApp.class);
     }
 
 }
