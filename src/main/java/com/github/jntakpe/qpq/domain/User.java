@@ -54,9 +54,7 @@ public class User extends AbstractEntity {
 
     @JsonIgnore
     @ManyToMany
-    @JoinTable(
-            name = "T_USER_AUTHORITY",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+    @JoinTable(name = "T_USER_AUTHORITY", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
     private Set<Authority> authorities = new HashSet<>();
 

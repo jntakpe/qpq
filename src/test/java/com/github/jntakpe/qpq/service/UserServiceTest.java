@@ -5,9 +5,11 @@ import com.github.jntakpe.qpq.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.sql.DataSource;
@@ -33,27 +35,54 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     private JdbcTemplate jdbcTemplate;
 
+
+    private Integer initCount;
+
     @BeforeClass
     public void setUp() {
         jdbcTemplate = new JdbcTemplate(dataSource);
+        userService.create(fakeUser("titi"));
+    }
+
+    @BeforeMethod
+    public void beforeMethod() {
+        initCount = countUsers();
     }
 
     @Test
     public void testCreate_shouldCreateUser() {
-        Integer initCount = jdbcTemplate.queryForObject(USER_COUNT_QUERY, Integer.class);
-        User user = userService.create(fakeUser());
+        User user = userService.create(fakeUser("toto"));
         assertThat(user).isNotNull();
-        assertThat(jdbcTemplate.queryForObject(USER_COUNT_QUERY, Integer.class)).isEqualTo(initCount + 1);
+        assertThat(countUsers()).isEqualTo(initCount + 1);
     }
 
-    private User fakeUser() {
-        User jntakpe = new User();
-        jntakpe.setLogin("jntakpe");
-        jntakpe.setFirstName("Jocelyn");
-        jntakpe.setLastName("Ntakpé");
-        jntakpe.setEmail("jntakpe@mail.com");
-        jntakpe.setPassword("password");
-        return jntakpe;
+    @Test(expectedExceptions = DataIntegrityViolationException.class)
+    public void testCreate_shouldFailCuzLoginTaken() {
+        User failUser = fakeUser("fail");
+        failUser.setLogin("titi");
+        userService.create(failUser);
+    }
+
+
+    @Test(expectedExceptions = DataIntegrityViolationException.class)
+    public void testCreate_shouldFailCuzEmailTaken() {
+        User failUser = fakeUser("fail");
+        failUser.setEmail("titi@mail.com");
+        userService.create(failUser);
+    }
+
+    private Integer countUsers() {
+        return jdbcTemplate.queryForObject(USER_COUNT_QUERY, Integer.class);
+    }
+
+    private User fakeUser(String username) {
+        User fakeUser = new User();
+        fakeUser.setLogin(username);
+        fakeUser.setFirstName(username);
+        fakeUser.setLastName(username);
+        fakeUser.setEmail(username + "@mail.com");
+        fakeUser.setPassword("password");
+        return fakeUser;
     }
 
 }
