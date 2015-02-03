@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Optional;
 
 /**
  * Services associés à l'entité {@link com.github.jntakpe.qpq.domain.User}
@@ -42,6 +43,12 @@ public class UserService {
         user.setActivationKey(RandomStringUtils.randomAlphanumeric(KEY_LENGTH));
         LOG.debug("Creating user {}", user);
         return userRepository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<User> findByLogin(String login) {
+        LOG.trace("Searching username {} from DB", login);
+        return userRepository.findByLoginIgnoreCase(login);
     }
 
     private void addDefaultAuthorities(User user) {
