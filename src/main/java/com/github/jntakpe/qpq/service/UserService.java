@@ -8,6 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +37,12 @@ public class UserService {
         this.authorityRepository = authorityRepository;
     }
 
+    /**
+     * Création d'un nouvel utilisateur
+     *
+     * @param user utilisateur à créer
+     * @return l'utilisateur sauvegardé en base de données
+     */
     @Transactional
     public User create(User user) {
         //FIXME encode password
@@ -45,10 +52,23 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * Récupère un utilisateur et ces rôles à partir de son login en ignorant la case
+     *
+     * @param login login de l'utilisateur recherché
+     * @return l'utilisateur correspondant au login
+     * @throws UsernameNotFoundException si ce login n'existe pas en base de données
+     */
     @Transactional(readOnly = true)
-    public Optional<User> findByLogin(String login) {
+    public User findByLoginWithAuthorities(String login) {
         LOG.trace("Searching username {} from DB", login);
-        return userRepository.findByLoginIgnoreCase(login);
+        Optional<User> optionalUser = userRepository.findByLoginIgnoreCase(login);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.getAuthorities().size();
+            return user;
+        }
+        throw new UsernameNotFoundException("User " + login + " not found in DB");
     }
 
     private void addDefaultAuthorities(User user) {

@@ -1,14 +1,16 @@
 package com.github.jntakpe.qpq.security;
 
 import com.github.jntakpe.qpq.domain.User;
-import com.github.jntakpe.qpq.repository.UserRepository;
+import com.github.jntakpe.qpq.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,14 +20,16 @@ import java.util.stream.Collectors;
  *
  * @author jntakpe
  */
+@Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private static final Logger LOG = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
-    private UserRepository userRepository;
+    private UserService userService;
 
-    public UserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    @Autowired
+    public UserDetailsServiceImpl(UserService userService) {
+        this.userService = userService;
     }
 
     private static org.springframework.security.core.userdetails.User mapUserDetails(User user) {
@@ -46,8 +50,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOG.debug("Authenticating user {}", username);
-        return userRepository.findByLoginIgnoreCase(username)
-                .map(UserDetailsServiceImpl::mapUserDetails)
-                .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found in DB"));
+        User user = userService.findByLoginWithAuthorities(username);
+        return mapUserDetails(user);
     }
 }

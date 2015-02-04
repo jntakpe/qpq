@@ -39,10 +39,10 @@ module.exports = function (grunt) {
                 },
                 src: [
                     '<%= dirs.bowerRes %>/jquery/dist/jquery.min.js',
+                    '<%= dirs.bowerRes %>/bootstrap/dist/js/bootstrap.min.js',
                     '<%= dirs.bowerRes %>/angular/angular.min.js',
                     '<%= dirs.bowerRes %>/angular-route/angular-route.min.js',
                     '<%= dirs.bowerRes %>/angular-messages/angular-messages.min.js',
-                    '<%= dirs.bowerRes %>/angular-resource/angular-resource.min.js',
                     '<%= dirs.bowerRes %>/angular-resource/angular-resource.min.js'
                 ],
                 dest: '<%= dirs.target %>/js/third-party.min.js'
@@ -56,15 +56,14 @@ module.exports = function (grunt) {
                     '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
                 },
                 src: [
-                    '<%= dirs.bowerRes %>/angular-material/angular-material.min.css'
+                    '<%= dirs.bowerRes %>/bootstrap/dist/css/bootstrap.min.css',
+                    '<%= dirs.bowerRes %>/font-awesome/css/font-awesome.min.css'
                 ],
                 dest: '<%= dirs.target %>/css/third-party.min.css'
             },
             coreJs: {
                 src: [
                     '<%= dirs.source %>/js/qpq.js',
-                    '<%= dirs.source %>/js/fastsplit/fastsplit.controller.js',
-                    '<%= dirs.source %>/js/bars/bars.controller.js',
                     '<%= dirs.source %>/js/home/home.controller.js'
                 ],
                 dest: '<%= dirs.target %>/js/core.js'
@@ -77,15 +76,15 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            icons: {
+            fonts: {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= dirs.bowerRes %>/material-design-icons/',
+                        cwd: '<%= dirs.bowerRes %>/font-awesome/fonts/',
                         src: [
-                            '**/production/*.svg'
+                            '**'
                         ],
-                        dest: '<%= dirs.target %>/img/icons',
+                        dest: '<%= dirs.target %>/fonts',
                         filter: 'isFile'
                     }
                 ]
@@ -126,7 +125,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerTask('default', [
-        'clean', 'concat:jsThirdParty', 'concat:cssThirdParty', 'concat:coreJs', 'concat:coreCss', 'copy:icons',
+        'clean', 'concat:jsThirdParty', 'concat:cssThirdParty', 'concat:coreJs', 'concat:coreCss', 'copy:fonts',
         'copy:img'
     ]);
 };
