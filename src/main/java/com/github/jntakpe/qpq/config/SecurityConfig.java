@@ -1,5 +1,6 @@
 package com.github.jntakpe.qpq.config;
 
+import com.github.jntakpe.qpq.repository.UserRepository;
 import com.github.jntakpe.qpq.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +27,12 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsServiceImpl;
+    private UserRepository userRepository;
+
+    @Bean
+    public UserDetailsServiceImpl userDetailsService() {
+        return new UserDetailsServiceImpl(userRepository);
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -35,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
 
     @Override
