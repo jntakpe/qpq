@@ -7,3 +7,5 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+liquibase:
+  enabled: false
