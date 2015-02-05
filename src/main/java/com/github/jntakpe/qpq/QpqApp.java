@@ -18,7 +18,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @EnableConfigurationProperties
-@ComponentScan("com.github.jntakpe.qpq") // juste pour aider IntelliJ
+@ComponentScan("com.github.jntakpe.qpq") // juste pour IntelliJ
 public class QpqApp extends SpringBootServletInitializer {
 
     private static final Logger LOG = LoggerFactory.getLogger(QpqApp.class);

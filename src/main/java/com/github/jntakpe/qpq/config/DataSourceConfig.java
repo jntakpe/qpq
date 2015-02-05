@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("com.github.jntakpe.qpq.repository")
 public class DataSourceConfig {
 
+
 }
 
 

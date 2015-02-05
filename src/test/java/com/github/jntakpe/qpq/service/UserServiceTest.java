@@ -7,6 +7,7 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -34,7 +35,6 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     private DataSource dataSource;
 
     private JdbcTemplate jdbcTemplate;
-
 
     private Integer initCount;
 
@@ -69,6 +69,19 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         User failUser = fakeUser("fail");
         failUser.setEmail("titi@mail.com");
         userService.create(failUser);
+    }
+
+    @Test
+    public void testFindByLoginWithAuthorities_shouldFindUser() {
+        assertThat(countUsers()).isNotZero();
+        User user = userService.findByLoginWithAuthorities("jntakpe");
+        assertThat(user).isNotNull();
+        assertThat(user.getAuthorities()).isNotEmpty();
+    }
+
+    @Test(expectedExceptions = UsernameNotFoundException.class)
+    public void testFindByLoginWithAuthorities_shouldFailCuzNoSuchUser() {
+        userService.findByLoginWithAuthorities("nobody");
     }
 
     private Integer countUsers() {
