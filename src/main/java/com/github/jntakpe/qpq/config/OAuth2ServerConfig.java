@@ -1,15 +1,13 @@
 package com.github.jntakpe.qpq.config;
 
+import com.github.jntakpe.qpq.config.properties.OAuthProperties;
 import com.github.jntakpe.qpq.security.AjaxLogoutSuccessHandler;
 import com.github.jntakpe.qpq.security.Http401UnauthorizedEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
-import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -81,20 +79,13 @@ public class OAuth2ServerConfig {
     @Configuration
     @EnableAuthorizationServer
     @ConditionalOnWebApplication
-    protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter implements EnvironmentAware {
-
-        private static final String ENV_OAUTH = "authentication.oauth.";
-
-        private static final String PROP_CLIENTID = "clientid";
-
-        private static final String PROP_SECRET = "secret";
-
-        private static final String PROP_TOKEN_VALIDITY_SECONDS = "tokenValidityInSeconds";
-
-        private RelaxedPropertyResolver propertyResolver;
+    protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
         @Autowired
         private DataSource dataSource;
+
+        @Autowired
+        private OAuthProperties oAuthProperties;
 
         @Autowired
         @Qualifier("authenticationManagerBean")
@@ -115,18 +106,14 @@ public class OAuth2ServerConfig {
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
             clients
-                    .jdbc(dataSource)
-                    .withClient(propertyResolver.getProperty(PROP_CLIENTID))
+                    .inMemory()
+                    .withClient(oAuthProperties.getClientId())
                     .scopes("read", "write")
                     .authorities(Constants.ADMIN, Constants.USER)
                     .authorizedGrantTypes("password", "refresh_token")
-                    .secret(propertyResolver.getProperty(PROP_SECRET))
-                    .accessTokenValiditySeconds(propertyResolver.getProperty(PROP_TOKEN_VALIDITY_SECONDS, Integer.class, 1800));
+                    .secret(oAuthProperties.getSecret())
+                    .accessTokenValiditySeconds(oAuthProperties.getTokenValidityInSeconds());
         }
 
-        @Override
-        public void setEnvironment(Environment environment) {
-            this.propertyResolver = new RelaxedPropertyResolver(environment, ENV_OAUTH);
-        }
     }
 }

@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * Classe démarrant l'application Spring Boot
@@ -15,6 +17,8 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
  * @author jntakpe
  */
 @SpringBootApplication
+@EnableConfigurationProperties
+@ComponentScan("com.github.jntakpe.qpq") // juste pour aider IntelliJ
 public class QpqApp extends SpringBootServletInitializer {
 
     private static final Logger LOG = LoggerFactory.getLogger(QpqApp.class);
@@ -25,7 +29,7 @@ public class QpqApp extends SpringBootServletInitializer {
      * @param args arguments passés par le goal maven
      */
     public static void main(String[] args) {
-        LOG.info("Démarrage de l'application en mode 'embedded'");
+        LOG.info("Starting app with embedded Tomcat");
         new SpringApplication(QpqApp.class).run(args);
     }
 
@@ -37,9 +41,9 @@ public class QpqApp extends SpringBootServletInitializer {
      */
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        LOG.info("Démarrage de l'application en mode 'classique'");
+        LOG.info("Starting app on external Tomcat");
         String profile = SystemUtils.IS_OS_LINUX ? Constants.PROD_PROFILE : Constants.DEV_PROFILE;
-        LOG.info("Profil '{}' sélectionné", profile);
+        LOG.info("Profile {} selected", profile);
         application.profiles(profile);
         return application.sources(QpqApp.class);
     }

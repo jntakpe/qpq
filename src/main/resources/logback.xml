@@ -30,7 +30,7 @@
     <logger name="org.springframework.web" level="WARN">
     </logger>
 
-    <logger name="org.springframework.security" level="DEBUG">
+    <logger name="org.springframework.security" level="WARN">
     </logger>
 
     <logger name="org.springframework.cache" level="WARN">

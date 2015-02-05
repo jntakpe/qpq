@@ -10,23 +10,28 @@
     <description>Application permettant de faire les comptes et les dépenses entre amis</description>
     <packaging>jar</packaging>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.0.RELEASE</version>
-    </parent>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>com.github.jntakpe.qpq.QpqApp</start-class>
         <java.version>1.8</java.version>
+        <spring-boot.version>1.2.1.RELEASE</spring-boot.version>
         <spring-security-oauth2.version>2.0.5.RELEASE</spring-security-oauth2.version>
         <spring-cloud.version>1.1.1.RELEASE</spring-cloud.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <postgres.version>9.3-1100-jdbc41</postgres.version>
+        <liquibase.version>3.3.2</liquibase.version>
+        <liquibase-hibernate4.version>3.5</liquibase-hibernate4.version>
+        <javassist.version>3.18.2-GA</javassist.version>
         <testng.version>6.8.8</testng.version>
         <assertj.version>1.2.0</assertj.version>
     </properties>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.2.1.RELEASE</version>
+    </parent>
+
 
     <dependencies>
         <dependency>
@@ -81,12 +86,15 @@
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>${hikaricp.version}</version>
         </dependency>
         <dependency>
             <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-core</artifactId>
-            <version>${dropwizard-metrics.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -139,6 +147,45 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>${liquibase.version}</version>
+                <configuration>
+                    <changeLogFile>src/main/resources/liquibase/master.xml</changeLogFile>
+                    <diffChangeLogFile>src/main/resources/liquibase/changelog/${maven.build.timestamp}_changelog.xml
+                    </diffChangeLogFile>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql://localhost:5432/qpq</url>
+                    <username>postgres</username>
+                    <password>sopra*</password>
+                    <referenceUrl>
+                        hibernate:spring:com.github.jntakpe.qpq.domain?dialect=org.hibernate.dialect.PostgreSQL82Dialect
+                    </referenceUrl>
+                    <verbose>true</verbose>
+                    <logging>debug</logging>
+                    <diffExcludeObjects>oauth_access_token, oauth_approvals, oauth_client_details, oauth_client_token,
+                        oauth_code, oauth_refresh_token
+                    </diffExcludeObjects>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.javassist</groupId>
+                        <artifactId>javassist</artifactId>
+                        <version>${javassist.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.liquibase.ext</groupId>
+                        <artifactId>liquibase-hibernate4</artifactId>
+                        <version>${liquibase-hibernate4.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-data-jpa</artifactId>
+                        <version>${spring-boot.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

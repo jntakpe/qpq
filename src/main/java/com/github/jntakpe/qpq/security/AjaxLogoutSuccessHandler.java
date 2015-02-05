@@ -34,8 +34,8 @@ public class AjaxLogoutSuccessHandler extends AbstractAuthenticationTargetUrlReq
      * {@inheritDoc}
      */
     @Override
-    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
-                                Authentication authentication) throws IOException, ServletException {
+    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
+            throws IOException, ServletException {
         String token = request.getHeader("authorization");
         if (token != null && token.startsWith(BEARER_AUTHENTICATION)) {
             String afterToken = StringUtils.substringAfter(token, BEARER_AUTHENTICATION);

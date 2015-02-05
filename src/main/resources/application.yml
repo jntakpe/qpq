@@ -3,10 +3,10 @@ management:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
 authentication:
     oauth:
-        clientid: qpqapp
+        clientId: qpqapp
         secret: mySecretOAuthSecret
         tokenValidityInSeconds: 1800
         rememberMeKey: qpqsecurekey
