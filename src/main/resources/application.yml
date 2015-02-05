@@ -4,6 +4,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+liquibase:
+  change-log: classpath:/liquibase/master.xml
 authentication:
     oauth:
         clientId: qpqapp
@@ -17,4 +19,4 @@ spring:
     url: jdbc:postgresql://localhost:5432/qpq
     username: postgres
     password: sopra*
-    driverClassName: org.postgresql.Driver
+    dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
