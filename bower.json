@@ -7,8 +7,8 @@
     "font-awesome": "latest",
     "angular": "latest",
     "angular-messages": "latest",
-    "angular-route": "latest",
     "angular-resource": "latest",
+    "angular-ui-router": "latest",
     "angular-local-storage": "latest"
   }
 }

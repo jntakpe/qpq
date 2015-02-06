@@ -1,17 +1,28 @@
 var homeApp = angular.module('homeApp', []),
-    qpqApp = angular.module('qpqApp', ['ngMessages', 'ngRoute', 'ngResource', 'homeApp', 'authApp']);
+    qpqApp = angular.module('qpqApp', ['ngMessages', 'ui.router', 'ngResource', 'homeApp', 'authApp']);
 
-qpqApp.config(function ($routeProvider, $httpProvider) {
+qpqApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     "use strict";
+
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider.state('site', {
+        abstract: true,
+        views: {
+            'navbar@': {
+                templateUrl: 'views/navbar.html',
+                controller: 'NavbarController as navbar'
+            }
+        },
+        resolve: {
+            authorize: ['Auth',
+                function (Auth) {
+                    return Auth.authorize();
+                }]
+        }
+    });
+
     $httpProvider.interceptors.push('AuthInterceptor');
-    $routeProvider
-        .when('/some', {
-            controller: 'SomeController as some',
-            templateUrl: 'views/some-view.html'
-        })
-        .otherwise({
-            controller: 'HomeController as home',
-            templateUrl: 'views/home.html'
-        });
+
 });
 
