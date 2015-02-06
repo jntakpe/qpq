@@ -52,7 +52,6 @@ public class User extends AbstractEntity {
     @Column(name = "activation_key", length = 20)
     private String activationKey;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "t_user_authority", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})

@@ -73,7 +73,9 @@ module.exports = function (grunt) {
                     '<%= dirs.source %>/js/authentication/auth-interceptor.service.js',
                     '<%= dirs.source %>/js/navbar/navbar.controller.js',
                     '<%= dirs.source %>/js/home/home.js',
-                    '<%= dirs.source %>/js/home/home.controller.js'
+                    '<%= dirs.source %>/js/home/home.controller.js',
+                    '<%= dirs.source %>/js/login/login.js',
+                    '<%= dirs.source %>/js/login/login.controller.js'
                 ],
                 dest: '<%= dirs.target %>/js/core.js'
             },

@@ -1,6 +1,8 @@
 authApp.factory('Account', Account);
 
 function Account($resource) {
+    "use strict";
+
     return {
         account: $resource('api/account', {}, {
             get: {

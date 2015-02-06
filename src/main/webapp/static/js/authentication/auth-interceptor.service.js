@@ -1,6 +1,8 @@
 authApp.factory('AuthInterceptor', AuthInterceptor);
 
 function AuthInterceptor(localStorageService) {
+    "use strict";
+
     return {
         request: function (config) {
             config.headers = config.headers || {};

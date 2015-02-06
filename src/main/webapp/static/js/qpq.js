@@ -26,3 +26,28 @@ qpqApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
 });
 
+qpqApp.run(function ($rootScope, $state) {
+    "use strict";
+
+    $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
+        $rootScope.toState = toState;
+        $rootScope.toStateParams = toStateParams;
+        if (Principal.isIdentityResolved()) {
+            Auth.authorize();
+        }
+    });
+
+    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        $rootScope.previousStateName = fromState.name;
+        $rootScope.previousStateParams = fromParams;
+    });
+
+    $rootScope.back = function () {
+        if ($rootScope.previousStateName === 'activate' || $state.get($rootScope.previousStateName) === null) {
+            $state.go('home');
+        } else {
+            $state.go($rootScope.previousStateName, $rootScope.previousStateParams);
+        }
+    };
+});
+

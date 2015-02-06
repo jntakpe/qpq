@@ -1,6 +1,8 @@
 authApp.factory('Auth', Auth);
 
-function Auth($rootScope, $q, Principal, OAuth, Account, localStorageService) {
+function Auth($rootScope, $q, Principal, OAuth, Account, $state) {
+    "use strict";
+
     return {
         login: function (credentials, callback) {
             var cb = callback || angular.noop, deferred = $q.defer();
@@ -23,7 +25,17 @@ function Auth($rootScope, $q, Principal, OAuth, Account, localStorageService) {
         authorize: function () {
             return Principal.identity().then(function () {
                 var isAuthenticated = Principal.isAuthenticated();
-                //FIXME do smthing
+                if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0
+                    && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
+                    if (isAuthenticated) {
+                        $state.go('accessdenied');
+                    } else {
+                        $rootScope.returnToState = $rootScope.toState;
+                        $rootScope.returnToStateParams = $rootScope.toStateParams;
+                        $state.go('login');
+                    }
+                }
+
             });
         },
         createAccount: function (account, callback) {

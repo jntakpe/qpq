@@ -1,6 +1,8 @@
 authApp.factory('OAuth', OAuth);
 
 function OAuth($http, localStorageService) {
+    "use strict";
+
     return {
         login: function (credentials) {
             var data = "username=" + credentials.username + "&password=" + credentials.password +

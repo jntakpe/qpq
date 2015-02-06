@@ -1,6 +1,8 @@
 authApp.factory('Principal', Principal);
 
 function Principal($q, Account) {
+    "use strict";
+
     var identity, authenticated = false;
 
     return {
@@ -33,7 +35,6 @@ function Principal($q, Account) {
         },
         identity: function (force) {
             var deferred = $q.defer();
-
             if (force === true) {
                 identity = undefined;
             }

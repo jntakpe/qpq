@@ -1,17 +1,14 @@
 qpqApp.config(function ($stateProvider) {
-    "use strict";
-
     $stateProvider
-        .state('home', {
-            parent: 'site',
-            url: '/',
+        .state('login', {
+            url: '/login',
             data: {
                 roles: []
             },
             views: {
                 'content@': {
-                    templateUrl: 'views/home.html',
-                    controller: 'HomeController as home'
+                    templateUrl: 'views/login.html',
+                    controller: 'LoginController as login'
                 }
             }
         });
