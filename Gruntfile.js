@@ -43,7 +43,8 @@ module.exports = function (grunt) {
                     '<%= dirs.bowerRes %>/angular/angular.min.js',
                     '<%= dirs.bowerRes %>/angular-route/angular-route.min.js',
                     '<%= dirs.bowerRes %>/angular-messages/angular-messages.min.js',
-                    '<%= dirs.bowerRes %>/angular-resource/angular-resource.min.js'
+                    '<%= dirs.bowerRes %>/angular-resource/angular-resource.min.js',
+                    '<%= dirs.bowerRes %>/angular-local-storage/dist/angular-local-storage.min.js'
                 ],
                 dest: '<%= dirs.target %>/js/third-party.min.js'
             },
@@ -64,6 +65,12 @@ module.exports = function (grunt) {
             coreJs: {
                 src: [
                     '<%= dirs.source %>/js/qpq.js',
+                    '<%= dirs.source %>/js/authentication/auth.app.js',
+                    '<%= dirs.source %>/js/authentication/auth.service.js',
+                    '<%= dirs.source %>/js/authentication/account.service.js',
+                    '<%= dirs.source %>/js/authentication/oauth2.service.js',
+                    '<%= dirs.source %>/js/authentication/principal.service.js',
+                    '<%= dirs.source %>/js/authentication/auth-interceptor.service.js',
                     '<%= dirs.source %>/js/home/home.controller.js'
                 ],
                 dest: '<%= dirs.target %>/js/core.js'

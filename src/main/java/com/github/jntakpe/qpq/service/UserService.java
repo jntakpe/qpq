@@ -4,6 +4,7 @@ import com.github.jntakpe.qpq.domain.Authority;
 import com.github.jntakpe.qpq.domain.User;
 import com.github.jntakpe.qpq.repository.AuthorityRepository;
 import com.github.jntakpe.qpq.repository.UserRepository;
+import com.github.jntakpe.qpq.security.SecurityUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,6 +70,12 @@ public class UserService {
             return user;
         }
         throw new UsernameNotFoundException("User " + login + " not found in DB");
+    }
+
+    @Transactional(readOnly = true)
+    public User findCurrentUser() {
+        LOG.trace("Searching current user account details");
+        return findByLoginWithAuthorities(SecurityUtils.getCurrentLogin());
     }
 
     private void addDefaultAuthorities(User user) {

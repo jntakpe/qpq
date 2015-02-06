@@ -8,6 +8,7 @@
     "angular": "latest",
     "angular-messages": "latest",
     "angular-route": "latest",
-    "angular-resource": "latest"
+    "angular-resource": "latest",
+    "angular-local-storage": "latest"
   }
 }

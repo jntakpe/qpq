@@ -19,4 +19,4 @@ spring:
     url: jdbc:postgresql://localhost:5432/qpq
     username: postgres
     password: sopra*
-    dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
+    driverClassName: org.postgresql.Driver

@@ -1,8 +1,9 @@
 var homeApp = angular.module('homeApp', []),
-    qpqApp = angular.module('qpqApp', ['ngMessages', 'ngRoute', 'ngResource', 'homeApp']);
+    qpqApp = angular.module('qpqApp', ['ngMessages', 'ngRoute', 'ngResource', 'homeApp', 'authApp']);
 
-qpqApp.config(function ($routeProvider) {
+qpqApp.config(function ($routeProvider, $httpProvider) {
     "use strict";
+    $httpProvider.interceptors.push('AuthInterceptor');
     $routeProvider
         .when('/some', {
             controller: 'SomeController as some',
