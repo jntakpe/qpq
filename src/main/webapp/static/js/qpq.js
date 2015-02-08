@@ -26,7 +26,7 @@ qpqApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
 
 });
 
-qpqApp.run(function ($rootScope, $state) {
+qpqApp.run(function ($rootScope, $state, Auth, Principal) {
     "use strict";
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
