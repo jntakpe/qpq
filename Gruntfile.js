@@ -48,20 +48,6 @@ module.exports = function (grunt) {
                 ],
                 dest: '<%= dirs.target %>/js/third-party.min.js'
             },
-            cssThirdParty: {
-                options: {
-                    stripBanners: {
-                        block: true
-                    },
-                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Core CSS - ' +
-                    '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
-                },
-                src: [
-                    '<%= dirs.bowerRes %>/bootstrap/dist/css/bootstrap.min.css',
-                    '<%= dirs.bowerRes %>/font-awesome/css/font-awesome.min.css'
-                ],
-                dest: '<%= dirs.target %>/css/third-party.min.css'
-            },
             coreJs: {
                 src: [
                     '<%= dirs.source %>/js/qpq.js',
@@ -79,11 +65,49 @@ module.exports = function (grunt) {
                 ],
                 dest: '<%= dirs.target %>/js/core.js'
             },
-            coreCss: {
+            unify: {
+                options: {
+                    stripBanners: {
+                        block: true
+                    },
+                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Unify CSS Theme- ' +
+                    '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+
+                },
                 src: [
-                    '<%= dirs.source %>/css/qpq.css'
+                    '<%= dirs.source %>/css/unify/style.css',
+                    '<%= dirs.source %>/css/unify/app.css',
+                    '<%= dirs.source %>/css/unify/header.css',
+                    '<%= dirs.source %>/css/unify/footer.css'
                 ],
-                dest: '<%= dirs.target %>/css/core.css'
+                dest: '<%= dirs.source %>/css/unify.css'
+            },
+            cssThirdParty: {
+                options: {
+                    stripBanners: {
+                        block: true
+                    },
+                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Core CSS - ' +
+                    '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                },
+                src: [
+                    '<%= dirs.bowerRes %>/bootstrap/dist/css/bootstrap.min.css',
+                    '<%= dirs.bowerRes %>/font-awesome/css/font-awesome.min.css'
+                ],
+                dest: '<%= dirs.target %>/css/third-party.min.css'
+            }
+        },
+        cssmin: {
+            coreCss: {
+                files: [{
+                    '<%= dirs.target %>/css/core.css': [
+                        '<%= dirs.source %>/css/unify.css',
+                        '<%= dirs.source %>/css/core.css']
+                }],
+                options: {
+                    shorthandCompating: false,
+                    roundingPrecision: -1
+                }
             }
         },
         copy: {
@@ -136,7 +160,13 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerTask('default', [
-        'clean', 'concat:jsThirdParty', 'concat:cssThirdParty', 'concat:coreJs', 'concat:coreCss', 'copy:fonts',
+        'clean',
+        'concat:jsThirdParty',
+        'concat:unify',
+        'concat:cssThirdParty',
+        'concat:coreJs',
+        'cssmin:coreCss',
+        'copy:fonts',
         'copy:img'
     ]);
 };
