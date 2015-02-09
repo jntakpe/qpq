@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -125,16 +126,13 @@ public class User extends AbstractEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         User user = (User) o;
-
-        return !(login != null ? !login.equals(user.login) : user.login != null);
-
+        return Objects.equals(login, user.login);
     }
 
     @Override
     public int hashCode() {
-        return login != null ? login.hashCode() : 0;
+        return Objects.hash(login);
     }
 
     @Override

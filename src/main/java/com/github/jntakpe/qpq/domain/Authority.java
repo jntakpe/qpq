@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Entité représentant le rôle d'un {@link com.github.jntakpe.qpq.domain.User}
@@ -41,15 +42,13 @@ public class Authority implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Authority authority = (Authority) o;
-
-        return !(name != null ? !name.equals(authority.name) : authority.name != null);
+        return Objects.equals(name, authority.name);
     }
 
     @Override
     public int hashCode() {
-        return name != null ? name.hashCode() : 0;
+        return Objects.hash(name);
     }
 
     @Override
