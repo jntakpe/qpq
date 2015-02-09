@@ -131,6 +131,7 @@
                     <arguments>
                         <argument>--spring.profiles.active=dev</argument>
                     </arguments>
+                    <addResources>false</addResources>
                 </configuration>
             </plugin>
             <plugin>
