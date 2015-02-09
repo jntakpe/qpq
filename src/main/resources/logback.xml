@@ -36,4 +36,10 @@
     <logger name="org.springframework.cache" level="WARN">
     </logger>
 
+    <logger name="com.mangofactory.swagger" level="WARN">
+    </logger>
+
+    <logger name="liquibase" level="WARN">
+    </logger>
+
 </configuration>

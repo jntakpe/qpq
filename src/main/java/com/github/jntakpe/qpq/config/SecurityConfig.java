@@ -1,6 +1,8 @@
 package com.github.jntakpe.qpq.config;
 
 import com.github.jntakpe.qpq.security.UserDetailsServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +29,8 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
 @ConditionalOnWebApplication
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final Logger LOG = LoggerFactory.getLogger(SecurityConfig.class);
+
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
@@ -37,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        LOG.debug("Configuring Spring Security with OAuth2 implementation");
         authenticationManagerBuilder.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
     }
 
