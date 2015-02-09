@@ -9,6 +9,7 @@
     "angular-messages": "latest",
     "angular-resource": "latest",
     "angular-ui-router": "latest",
-    "angular-local-storage": "latest"
+    "angular-local-storage": "latest",
+    "swagger-ui": "latest"
   }
 }

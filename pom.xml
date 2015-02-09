@@ -24,6 +24,7 @@
         <javassist.version>3.18.2-GA</javassist.version>
         <testng.version>6.8.8</testng.version>
         <assertj.version>1.2.0</assertj.version>
+        <swagger-springmvc.version>0.9.5</swagger-springmvc.version>
     </properties>
 
     <parent>
@@ -95,6 +96,11 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mangofactory</groupId>
+            <artifactId>swagger-springmvc</artifactId>
+            <version>${swagger-springmvc.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

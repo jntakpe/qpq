@@ -22,6 +22,14 @@ qpqApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         }
     });
 
+    qpqApp.config(function ($stateProvider) {
+        $stateProvider
+            .state('admin', {
+                abstract: true,
+                parent: 'site'
+            });
+    });
+
     $httpProvider.interceptors.push('AuthInterceptor');
 
 });

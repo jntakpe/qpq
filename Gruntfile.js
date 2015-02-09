@@ -58,6 +58,7 @@ module.exports = function (grunt) {
                     '<%= dirs.source %>/js/authentication/principal.service.js',
                     '<%= dirs.source %>/js/authentication/auth-interceptor.service.js',
                     '<%= dirs.source %>/js/navbar/navbar.controller.js',
+                    '<%= dirs.source %>/js/docs/docs.js',
                     '<%= dirs.source %>/js/home/home.js',
                     '<%= dirs.source %>/js/home/home.controller.js',
                     '<%= dirs.source %>/js/login/login.js',
@@ -70,9 +71,8 @@ module.exports = function (grunt) {
                     stripBanners: {
                         block: true
                     },
-                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Unify CSS Theme- ' +
+                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Unify CSS Theme - ' +
                     '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
-
                 },
                 src: [
                     '<%= dirs.source %>/css/unify/style.css',
@@ -81,6 +81,44 @@ module.exports = function (grunt) {
                     '<%= dirs.source %>/css/unify/footer.css'
                 ],
                 dest: '<%= dirs.source %>/css/unify.css'
+            },
+            swaggerCss: {
+                options: {
+                    stripBanners: {
+                        block: true
+                    },
+                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Swagger CSS dependencies - ' +
+                    '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                },
+                src: [
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/css/reset.css',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/css/screen.css'
+                ],
+                dest: '<%= dirs.target %>/css/swagger-bundle.min.css'
+            },
+            swaggerJs: {
+                options: {
+                    stripBanners: {
+                        block: true
+                    },
+                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Swagger JS dependencies - ' +
+                    '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                },
+                src: [
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/lib/shred.bundle.js',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/lib/jquery-1.8.0.min.js',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/lib/jquery.slideto.min.js',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/lib/jquery.wiggle.min.js',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/lib/jquery.ba-bbq.min.js',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/lib/handlebars-1.0.0.js',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/lib/underscore-min.js',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/lib/backbone-min.js',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/lib/swagger.js',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/swagger-ui.js',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/lib/highlight.7.3.pack.js',
+                    '<%= dirs.bowerRes %>/swagger-ui/dist/lib/swagger-oauth.js'
+                ],
+                dest: '<%= dirs.target %>/js/swagger-bundle.min.js'
             },
             cssThirdParty: {
                 options: {
@@ -167,6 +205,8 @@ module.exports = function (grunt) {
         'concat:coreJs',
         'cssmin:coreCss',
         'copy:fonts',
-        'copy:img'
+        'copy:img',
+        'concat:swaggerCss',
+        'concat:swaggerJs'
     ]);
 };
