@@ -13,6 +13,12 @@ spring:
       ddl-auto: validate
 liquibase:
   change-log: classpath:/liquibase/master.xml
+cache:
+  port: 5701
+  backupCount: 0
+  evictionPolicy: LRU
+  evictionPercentage: 25
+  timeToLive: 3600
 authentication:
     oauth:
         clientId: qpqapp
