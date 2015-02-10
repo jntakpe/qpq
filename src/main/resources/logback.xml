@@ -42,4 +42,7 @@
     <logger name="liquibase" level="WARN">
     </logger>
 
+    <logger name="com.hazelcast" level="WARN">
+    </logger>
+
 </configuration>
