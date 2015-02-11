@@ -39,7 +39,7 @@ public class AccountRessource {
      */
     @RequestMapping(value = "/account", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> currentUserAccount() {
-        return Optional.ofNullable(userService.findCurrentUser())
+        return Optional.ofNullable(userService.findCurrentUserWithAuthorities())
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }

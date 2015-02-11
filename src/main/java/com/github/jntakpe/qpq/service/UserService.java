@@ -82,7 +82,7 @@ public class UserService {
      * @return utilisateur courant
      */
     @Transactional(readOnly = true)
-    public User findCurrentUser() {
+    public User findCurrentUserWithAuthorities() {
         LOG.trace("Searching current user account details");
         User user = userRepository.findOne(SecurityUtils.getCurrentId());
         Hibernate.initialize(user.getAuthorities());
