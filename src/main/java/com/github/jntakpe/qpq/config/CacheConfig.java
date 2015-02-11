@@ -4,7 +4,6 @@ import com.github.jntakpe.qpq.config.properties.CacheProperties;
 import com.hazelcast.config.*;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.hibernate.HazelcastCacheRegionFactory;
 import com.hazelcast.instance.HazelcastInstanceFactory;
 import com.hazelcast.spring.cache.HazelcastCacheManager;
 import org.slf4j.Logger;
@@ -32,10 +31,14 @@ public class CacheConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(CacheConfig.class);
 
-    public static HazelcastInstance hazelcastInstance = Hazelcast.newHazelcastInstance();
+    private static HazelcastInstance hazelcastInstance = Hazelcast.newHazelcastInstance();
 
     @Autowired
     private CacheProperties cacheProperties;
+
+    public static HazelcastInstance getHazelcastInstance() {
+        return hazelcastInstance;
+    }
 
     @Bean
     public CacheManager cacheManager() {
@@ -43,18 +46,11 @@ public class CacheConfig {
         return new HazelcastCacheManager(hazelcastInstance);
     }
 
-    @Bean
-    public HazelcastCacheRegionFactory hazelcastCacheRegionFactory() {
-        LOG.debug("Starting Hazelcast cache region factory");
-        return new HazelcastCacheRegionFactory(hazelcastInstance);
-    }
-
     @PostConstruct
     public void hazelcastInstance() {
-        String instanceName = "qpq-cache";
-        LOG.debug("Configuring Hazelcast instance {}", instanceName);
+        LOG.debug("Configuring Hazelcast instance");
         Config config = new Config();
-        config.setInstanceName(instanceName);
+        config.setInstanceName("qpq-cache");
         NetworkConfig networkConfig = config.getNetworkConfig();
         networkConfig.setPort(cacheProperties.getPort());
         networkConfig.setPortAutoIncrement(true);

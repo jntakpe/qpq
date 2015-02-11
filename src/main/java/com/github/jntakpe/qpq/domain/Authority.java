@@ -1,6 +1,8 @@
 package com.github.jntakpe.qpq.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "t_authority")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Authority implements Serializable {
 
     public static final String ROLE_USER = "ROLE_USER";
