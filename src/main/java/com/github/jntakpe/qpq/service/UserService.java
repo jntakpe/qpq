@@ -6,9 +6,11 @@ import com.github.jntakpe.qpq.repository.AuthorityRepository;
 import com.github.jntakpe.qpq.repository.UserRepository;
 import com.github.jntakpe.qpq.security.SecurityUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,22 +62,31 @@ public class UserService {
      * @return l'utilisateur correspondant au login
      * @throws UsernameNotFoundException si ce login n'existe pas en base de données
      */
+    @Cacheable(value = "test")
     @Transactional(readOnly = true)
     public User findByLoginWithAuthorities(String login) {
         LOG.trace("Searching username {} from DB", login);
         Optional<User> optionalUser = userRepository.findByLoginIgnoreCase(login);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            user.getAuthorities().size();
+            Hibernate.initialize(user.getAuthorities());
             return user;
         }
         throw new UsernameNotFoundException("User " + login + " not found in DB");
     }
 
+    /**
+     * Récupère l'utilisateur courant et ces rôles à partir de l'identifiant du
+     * {@link com.github.jntakpe.qpq.security.SpringSecurityUser}
+     *
+     * @return utilisateur courant
+     */
     @Transactional(readOnly = true)
     public User findCurrentUser() {
         LOG.trace("Searching current user account details");
-        return findByLoginWithAuthorities(SecurityUtils.getCurrentLogin());
+        User user = userRepository.findOne(SecurityUtils.getCurrentId());
+        Hibernate.initialize(user.getAuthorities());
+        return user;
     }
 
     private void addDefaultAuthorities(User user) {

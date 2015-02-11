@@ -19,6 +19,23 @@ public final class SecurityUtils {
     }
 
     /**
+     * Récupère l'id de l'utilisateur Spring Security courant
+     *
+     * @return l'id d'utilisateur courant
+     */
+    public static Long getCurrentId() {
+        Authentication authentication = getAuthentification();
+        SpringSecurityUser springSecurityUser;
+        Long id = null;
+        if (authentication != null && authentication.getPrincipal() instanceof SpringSecurityUser) {
+            springSecurityUser = (SpringSecurityUser) authentication.getPrincipal();
+            id = springSecurityUser.getId();
+        }
+        return id;
+
+    }
+
+    /**
      * Récupère le login de l'utilisateur Spring Security courant
      *
      * @return le nom d'utilisateur courant

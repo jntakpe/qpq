@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
@@ -32,10 +31,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userService = userService;
     }
 
-    private static org.springframework.security.core.userdetails.User mapUserDetails(User user) {
+    private static SpringSecurityUser mapUserDetails(User user) {
         //FIXME handle not activated user
         List<GrantedAuthority> auths = mapAuthorities(user);
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), auths);
+        return new SpringSecurityUser(user.getId(), user.getLogin(), user.getPassword(), auths);
     }
 
     private static List<GrantedAuthority> mapAuthorities(User user) {
@@ -48,7 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * {@inheritDoc}
      */
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public SpringSecurityUser loadUserByUsername(String username) throws UsernameNotFoundException {
         LOG.debug("Authenticating user {}", username);
         User user = userService.findByLoginWithAuthorities(username);
         return mapUserDetails(user);
