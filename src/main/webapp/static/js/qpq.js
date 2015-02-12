@@ -9,16 +9,15 @@ qpqApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $stateProvider.state('site', {
         abstract: true,
         views: {
-            'navbar@': {
-                templateUrl: 'views/navbar.html',
-                controller: 'NavbarController as navbar'
+            'header@': {
+                templateUrl: 'views/header.html',
+                controller: 'HeaderController as header'
             }
         },
         resolve: {
-            authorize: ['Auth',
-                function (Auth) {
-                    return Auth.authorize();
-                }]
+            authorize: ['Auth', function (Auth) {
+                return Auth.authorize();
+            }]
         }
     });
 

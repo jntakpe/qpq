@@ -44,19 +44,19 @@ a:hover {
     box-shadow: 0 0 5px #ccc;
     margin-left: auto !important;
     margin-right: auto !important;
-    background: url(../img/patterns/15.png) repeat;
+    background: url(/dist/img/patterns/15.png) repeat;
 }
 
 /*Parallax Counter
 ------------------------------------*/
 .parallax-bg {
-    background: url(../img/blur/img1.jpg) 50% 0 repeat fixed;
+    background: url(/dist/img/blur/img1.jpg) 50% 0 repeat fixed;
 }
 
 /*Parallax Counter Block*/
 .parallax-counter {
     padding: 60px 0;
-    background: url(../img/bg/9.jpg) 50% 0 no-repeat fixed;
+    background: url(/dist/img/bg/9.jpg) 50% 0 no-repeat fixed;
 }
 
 .parallax-counter h4 {
@@ -76,7 +76,7 @@ a:hover {
 /*Parallax Counter Block*/
 .parallax-counter-v1 {
     padding: 60px 0;
-    background: url(../img/patterns/5.png) repeat fixed;
+    background: url(/dist/img/patterns/5.png) repeat fixed;
 }
 
 .parallax-counter-v1 .counters {
@@ -101,7 +101,7 @@ a:hover {
 .parallax-counter-v2 {
     position: relative;
     padding: 80px 0 60px;
-    background: url(../img/patterns/16.png) repeat fixed;
+    background: url(/dist/img/patterns/16.png) repeat fixed;
 }
 
 .parallax-counter-v2:after {
@@ -156,7 +156,7 @@ a:hover {
 /*Parallax Team
 ------------------------------------*/
 .parallax-team {
-    background: url(../img/team/faces.jpg) 50% 0 repeat fixed;
+    background: url(/dist/img/team/faces.jpg) 50% 0 repeat fixed;
 }
 
 .parallax-team,
@@ -180,7 +180,7 @@ a:hover {
 .purchase {
     padding: 25px 0 30px;
     border-bottom: solid 1px #eee;
-    background: url(../img/breadcrumbs.png) repeat;
+    background: url(/dist/img/breadcrumbs.png) repeat;
 }
 
 .purchase p {
@@ -462,7 +462,7 @@ a:hover {
     overflow: hidden;
     padding: 10px 0 6px;
     border-bottom: solid 1px #eee;
-    background: url(../img/breadcrumbs.png) repeat;
+    background: url(/dist/img/breadcrumbs.png) repeat;
 }
 
 .breadcrumbs h1 {
@@ -756,7 +756,7 @@ a.thumbnail {
     padding: 40px 0;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
-    background: url(../img/breadcrumbs.png) repeat;
+    background: url(/dist/img/breadcrumbs.png) repeat;
 }
 
 /*Gallery Page
@@ -974,7 +974,7 @@ ul.blog-tags a:hover i {
 
 .slider-promo-info-bg {
     padding: 25px 20px 20px;
-    background: url(../img/bg-black.png) repeat;
+    background: url(/dist/img/bg-black.png) repeat;
 }
 
 .slider-promo-info span.big-size {
@@ -1718,7 +1718,7 @@ ul.labels-demo li {
 .breadcrumbs-v2 {
     text-align: center;
     position: relative;
-    background: url(../img/bg/11.jpg) no-repeat center;
+    background: url(/dist/img/bg/11.jpg) no-repeat center;
 }
 
 .breadcrumbs-v2-in {
@@ -2150,7 +2150,7 @@ img.img-mouse {
 .service-info {
     position: relative;
     padding: 40px 0 50px;
-    background: url(../img/patterns/17.png) repeat;
+    background: url(/dist/img/patterns/17.png) repeat;
 }
 
 .service-info .info-description {
@@ -2201,7 +2201,7 @@ img.img-mouse {
 ------------------------------------*/
 .testimonials-bs {
     padding: 50px 0;
-    background: url(../img/bg/16.jpg) 50% 0 repeat fixed;
+    background: url(/dist/img/bg/16.jpg) 50% 0 repeat fixed;
 }
 
 .testimonials-bs .headline-center-v2 span.author {

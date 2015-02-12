@@ -1,6 +1,7 @@
 qpqApp.config(function ($stateProvider) {
     $stateProvider
         .state('login', {
+            parent: 'site',
             url: '/login',
             data: {
                 roles: []

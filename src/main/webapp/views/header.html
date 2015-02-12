@@ -1,0 +1,48 @@
+<div class="header">
+    <div class="topbar">
+        <div class="container" ng-switch="header.isAuthenticated()">
+            <ul ng-switch-when="true" class="loginbar pull-right">
+                <li><a href="#/account">Mon compte</a></li>
+                <li class="topbar-devider"></li>
+                <li><a href="javascript:void(0);" ng-click="header.logout()">Déconnexion</a></li>
+                <li class="topbar-devider"></li>
+                <li><a href="page_faq.html">Aide</a></li>
+            </ul>
+            <ul ng-switch-default class="loginbar pull-right">
+                <li><a href="#/login">Connexion</a></li>
+                <li class="topbar-devider"></li>
+                <li><a href="#/register">Créer un compte</a></li>
+                <li class="topbar-devider"></li>
+                <li><a href="page_faq.html">Aide</a></li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="navbar navbar-default mega-menu" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target=".navbar-responsive-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="fa fa-bars"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                    <img id="logo-header" src="assets/img/logo1-default.png" alt="Logo">
+                </a>
+            </div>
+            <div class="collapse navbar-collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown active">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                            Administration
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="active"><a href="index.html">First page</a></li>
+                            <li><a href="index.html">Second page</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

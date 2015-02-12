@@ -1,6 +1,6 @@
-qpqApp.controller('NavbarController', NavbarController);
+qpqApp.controller('HeaderController', HeaderController);
 
-function NavbarController(Auth, Principal, $state) {
+function HeaderController(Auth, Principal, $state) {
     "use strict";
 
     this.isAuthenticated = Principal.isAuthenticated;
