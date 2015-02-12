@@ -186,7 +186,16 @@ module.exports = function (grunt) {
                 tasks: ['concat:coreCss']
             }
         },
-        clean: ['<%= dirs.target %>/']
+        clean: ['<%= dirs.target %>/'],
+        removeLoggingCalls: {
+            files: ['<%= dirs.source %>/js/**.js'],
+            options: {
+                methods: ['log'],
+                strategy: function (consoleStatement) {
+                    return '';
+                }
+            }
+        }
     });
 
     grunt.loadNpmTasks('grunt-bower-task');
@@ -196,9 +205,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-remove-logging-calls');
 
     grunt.registerTask('default', [
         'clean',
+        'removeLoggingCalls',
         'concat:jsThirdParty',
         'concat:unify',
         'concat:cssThirdParty',
