@@ -66,22 +66,6 @@ module.exports = function (grunt) {
                 ],
                 dest: '<%= dirs.target %>/js/core.js'
             },
-            unify: {
-                options: {
-                    stripBanners: {
-                        block: true
-                    },
-                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Unify CSS Theme - ' +
-                    '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
-                },
-                src: [
-                    '<%= dirs.source %>/css/unify/style.css',
-                    '<%= dirs.source %>/css/unify/app.css',
-                    '<%= dirs.source %>/css/unify/header.css',
-                    '<%= dirs.source %>/css/unify/footer.css'
-                ],
-                dest: '<%= dirs.source %>/css/unify.css'
-            },
             swaggerCss: {
                 options: {
                     stripBanners: {
@@ -138,9 +122,21 @@ module.exports = function (grunt) {
         cssmin: {
             coreCss: {
                 files: [{
-                    '<%= dirs.target %>/css/core.css': [
-                        '<%= dirs.source %>/css/unify.css',
-                        '<%= dirs.source %>/css/core.css']
+                    '<%= dirs.target %>/css/core.min.css': ['<%= dirs.source %>/css/core.css']
+                }],
+                options: {
+                    shorthandCompating: false,
+                    roundingPrecision: -1
+                }
+            },
+            unify: {
+                files: [{
+                    '<%= dirs.target %>/css/unify.min.css': [
+                        '<%= dirs.source %>/css/unify/style.css',
+                        '<%= dirs.source %>/css/unify/app.css',
+                        '<%= dirs.source %>/css/unify/header.css',
+                        '<%= dirs.source %>/css/unify/footer.css'
+                    ]
                 }],
                 options: {
                     shorthandCompating: false,
@@ -211,10 +207,10 @@ module.exports = function (grunt) {
         'clean',
         'removeLoggingCalls',
         'concat:jsThirdParty',
-        'concat:unify',
         'concat:cssThirdParty',
         'concat:coreJs',
         'cssmin:coreCss',
+        'cssmin:unify',
         'copy:fonts',
         'copy:img',
         'concat:swaggerCss',
