@@ -62,7 +62,9 @@ module.exports = function (grunt) {
                     '<%= dirs.source %>/js/home/home.js',
                     '<%= dirs.source %>/js/home/home.controller.js',
                     '<%= dirs.source %>/js/login/login.js',
-                    '<%= dirs.source %>/js/login/login.controller.js'
+                    '<%= dirs.source %>/js/login/login.controller.js',
+                    '<%= dirs.source %>/js/register/register.js',
+                    '<%= dirs.source %>/js/register/register.controller.js'
                 ],
                 dest: '<%= dirs.target %>/js/core.js'
             },
@@ -109,7 +111,7 @@ module.exports = function (grunt) {
                     stripBanners: {
                         block: true
                     },
-                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Core CSS - ' +
+                    banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - Third party CSS - ' +
                     '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
                 },
                 src: [
@@ -122,7 +124,7 @@ module.exports = function (grunt) {
         cssmin: {
             coreCss: {
                 files: [{
-                    '<%= dirs.target %>/css/core.min.css': ['<%= dirs.source %>/css/core.css']
+                    '<%= dirs.target %>/css/core.min.css': ['<%= dirs.source %>/css/qpq.css']
                 }],
                 options: {
                     shorthandCompating: false,
@@ -135,7 +137,9 @@ module.exports = function (grunt) {
                         '<%= dirs.source %>/css/unify/style.css',
                         '<%= dirs.source %>/css/unify/app.css',
                         '<%= dirs.source %>/css/unify/header.css',
-                        '<%= dirs.source %>/css/unify/footer.css'
+                        '<%= dirs.source %>/css/unify/footer.css',
+                        '<%= dirs.source %>/css/unify/sky-forms.css',
+                        '<%= dirs.source %>/css/unify/custom-sky-forms.css'
                     ]
                 }],
                 options: {
