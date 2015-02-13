@@ -7,72 +7,113 @@
                 <p>Déjà utilisateur ? Cliquez <a href="#/login" class="color-green">Connexion</a> pour vous connecter.
                 </p>
             </div>
-            <form class="sky-form">
-                <label class="input">
+            <form name="form" role="form" class="sky-form" ng-submit="register.register(form)" novalidate>
+                <label class="input"
+                       ng-class="{'state-error': (form.$submitted || form.login.$touched) && form.login.$invalid}">
                     <i class="icon-prepend fa fa-sign-in"></i>
                     <i class="icon-append fa fa-asterisk"></i>
-                    <input id="login" name="login" class="form-control margin-bottom-20" type="text"
-                           placeholder="Login" ng-model="register.user.login"/>
+                    <input id="login" name="login" class="form-control" type="text" placeholder="Login"
+                           ng-model="register.user.login" maxlength="50" required ng-pattern="/^[a-zA-Z0-9]+$/"/>
+
+                    <div ng-messages="(form.$submitted || form.login.$touched) && form.login.$error"
+                         class="note note-error">
+                        <div ng-message="required">Veuillez saisir votre nom d'utilisateur.</div>
+                        <div ng-message="pattern">Le login ne doit pas contenir d'accents ou de caractères spéciaux.
+                        </div>
+                    </div>
+
                 </label>
 
                 <div class="row">
                     <section class="col col-6">
                         <label class="input">
                             <i class="icon-prepend fa fa-user"></i>
-                            <input id="first-name" name="first-name" class="form-control margin-bottom-20" type="text"
-                                   placeholder="Prénom" ng-model="register.user.firstName"/>
+                            <input id="first-name" name="first-name" class="form-control margin-top-20" type="text"
+                                   placeholder="Prénom" ng-model="register.user.firstName" maxlength="50"/>
                         </label>
                     </section>
                     <section class="col col-6">
                         <label class="input">
                             <i class="icon-prepend fa fa-user"></i>
-                            <input id="last-name" name="last-name" class="form-control margin-bottom-20" type="text"
-                                   placeholder="Nom" ng-model="register.user.lastName"/>
+                            <input id="last-name" name="last-name" class="form-control margin-top-20" type="text"
+                                   placeholder="Nom" ng-model="register.user.lastName" maxlength="50"/>
                         </label>
                     </section>
                 </div>
 
-                <label class="input">
+                <label class="input"
+                       ng-class="{'state-error': (form.$submitted || form.email.$touched) && form.email.$invalid}">
                     <i class="icon-prepend fa fa-envelope"></i>
                     <i class="icon-append fa fa-asterisk"></i>
-                    <input id="email" name="email" class="form-control margin-bottom-20" type="text"
-                           placeholder="Email" ng-model="register.user.email"/>
+                    <input id="email" name="email" class="form-control margin-top-20" type="email"
+                           placeholder="Email" ng-model="register.user.email" required/>
+
+                    <div ng-messages="(form.$submitted || form.email.$touched) && form.email.$error"
+                         class="note note-error">
+                        <div ng-message="required">Veuillez saisir votre adresse mail.</div>
+                        <div ng-message="email">Veuillez renseigner une adresse mail valide.</div>
+                    </div>
                 </label>
 
                 <div class="row">
                     <section class="col col-6">
-                        <label class="input">
+                        <label class="input"
+                               ng-class="{'state-error': (form.$submitted ||form.password.$touched) && form.password.$invalid}">
                             <i class="icon-prepend fa fa-lock"></i>
                             <i class="icon-append fa fa-asterisk"></i>
-                            <input id="password" name="password" class="form-control margin-bottom-20" type="text"
-                                   placeholder="Mot de passe" ng-model="register.user.password"/>
+                            <input id="password" name="password" class="form-control margin-top-20" type="password"
+                                   placeholder="Mot de passe" ng-model="register.user.password" required
+                                   minlength="5" maxlength="100"/>
+
+                            <div ng-messages="(form.$submitted || form.password.$touched) && form.password.$error"
+                                 class="note note-error">
+                                <div ng-message="required">Veuillez saisir votre mot de passe.</div>
+                                <div ng-message="minlength">Le mot de passe doit au minimum contenir 5 caractères.</div>
+                            </div>
                         </label>
+
                     </section>
                     <section class="col col-6">
-                        <label class="input">
+                        <label class="input"
+                               ng-class="{'state-error': (form.$submitted || form.confirmPassword.$touched) && form.confirmPassword.$invalid}">
                             <i class="icon-prepend fa fa-lock"></i>
                             <i class="icon-append fa fa-asterisk"></i>
-                            <input id="confirm-password" name="confirm-password" class="form-control margin-bottom-20"
-                                   placeholder="Confirmation" type="text" ng-model="register.user.confirmPassword"/>
+                            <input id="confirm-password" name="confirmPassword" class="form-control margin-top-20"
+                                   placeholder="Confirmation" type="password" ng-model="register.user.confirmPassword"
+                                   required maxlength="100" compare-to="register.user.password"/>
+
+                            <div ng-messages="(form.$submitted || form.confirmPassword.$touched) && form.confirmPassword.$error"
+                                 class="note note-error">
+                                <div ng-message="required">Veuillez confirmer votre mot de passe.</div>
+                                <div ng-message="compareTo">Les mots de passe ne correspondent pas.</div>
+                            </div>
                         </label>
                     </section>
                 </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <label class="checkbox"
+                               ng-class="{'state-error' : (form.$submitted || form.terms.$dirty) && form.terms.$invalid}">
+                            <input name="terms" type="checkbox" required ng-model="register.terms"><i></i>
+                            Lire les <a href="#/terms" class="color-green">conditions générales d'utilisation</a>
+
+                            <div ng-messages="(form.$submitted || form.terms.$dirty) && form.terms.$error"
+                                 class="note note-error">
+                                <div ng-message="required">Veuillez accepter les condition générales d'utilisation.
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-lg-4 text-right">
+                        <button class="btn btn-success" type="submit">
+                            <i class="fa fa-plus"></i> Créer le compte
+                        </button>
+                    </div>
+                </div>
             </form>
-
-            <hr>
-
-            <div class="row">
-                <div class="col-lg-8 sky-form">
-                    <label class="checkbox">
-                        <input type="checkbox"><i></i>
-                        Lire les <a href="#/terms" class="color-green">conditions générales d'utilisation</a>
-                    </label>
-                </div>
-                <div class="col-lg-4 text-right">
-                    <button class="btn-u" type="submit"><i class="fa fa-plus"></i> Créer le compte</button>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>

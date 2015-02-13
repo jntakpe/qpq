@@ -51,6 +51,7 @@ module.exports = function (grunt) {
             coreJs: {
                 src: [
                     '<%= dirs.source %>/js/qpq.js',
+                    '<%= dirs.source %>/js/qpq.directive.js',
                     '<%= dirs.source %>/js/authentication/auth.js',
                     '<%= dirs.source %>/js/authentication/auth.service.js',
                     '<%= dirs.source %>/js/authentication/account.service.js',
