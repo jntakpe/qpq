@@ -13,13 +13,15 @@
                     <i class="icon-prepend fa fa-sign-in"></i>
                     <i class="icon-append fa fa-asterisk"></i>
                     <input id="login" name="login" class="form-control" type="text" placeholder="Login"
-                           ng-model="register.user.login" maxlength="50" required ng-pattern="/^[a-zA-Z0-9]+$/"/>
+                           ng-model="register.user.login" maxlength="50" required ng-pattern="/^[a-zA-Z0-9]+$/"
+                           available-validator="/api/register/login" ng-model-options="{ updateOn: 'blur' }"/>
 
                     <div ng-messages="(form.$submitted || form.login.$touched) && form.login.$error"
                          class="note note-error">
                         <div ng-message="required">Veuillez saisir votre nom d'utilisateur.</div>
                         <div ng-message="pattern">Le login ne doit pas contenir d'accents ou de caractères spéciaux.
                         </div>
+                        <div ng-message="available">Ce login est déjà utilisé.</div>
                     </div>
 
                 </label>
@@ -46,12 +48,14 @@
                     <i class="icon-prepend fa fa-envelope"></i>
                     <i class="icon-append fa fa-asterisk"></i>
                     <input id="email" name="email" class="form-control margin-top-20" type="email"
-                           placeholder="Email" ng-model="register.user.email" required/>
+                           placeholder="Email" ng-model="register.user.email" required
+                           available-validator="/api/register/email" ng-model-options="{ updateOn: 'blur' }"/>
 
                     <div ng-messages="(form.$submitted || form.email.$touched) && form.email.$error"
                          class="note note-error">
                         <div ng-message="required">Veuillez saisir votre adresse mail.</div>
                         <div ng-message="email">Veuillez renseigner une adresse mail valide.</div>
+                        <div ng-message="available">Cette adresse mail est déjà utilisée.</div>
                     </div>
                 </label>
 
@@ -80,7 +84,7 @@
                             <i class="icon-append fa fa-asterisk"></i>
                             <input id="confirm-password" name="confirmPassword" class="form-control margin-top-20"
                                    placeholder="Confirmation" type="password" ng-model="register.user.confirmPassword"
-                                   required maxlength="100" compare-to="register.user.password"/>
+                                   required maxlength="100" compare-to-validator="register.user.password"/>
 
                             <div ng-messages="(form.$submitted || form.confirmPassword.$touched) && form.confirmPassword.$error"
                                  class="note note-error">

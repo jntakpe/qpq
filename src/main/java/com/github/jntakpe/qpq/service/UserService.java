@@ -10,7 +10,6 @@ import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,17 +61,40 @@ public class UserService {
      * @return l'utilisateur correspondant au login
      * @throws UsernameNotFoundException si ce login n'existe pas en base de données
      */
-    @Cacheable(value = "test")
     @Transactional(readOnly = true)
     public User findByLoginWithAuthorities(String login) {
-        LOG.trace("Searching username {} from DB", login);
-        Optional<User> optionalUser = userRepository.findByLoginIgnoreCase(login);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
+        Optional<User> userOptional = findByLogin(login);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            LOG.trace("Fetching authorities for user {}", login);
             Hibernate.initialize(user.getAuthorities());
             return user;
         }
         throw new UsernameNotFoundException("User " + login + " not found in DB");
+    }
+
+    /**
+     * Récupère un utilisateur à partir de son login
+     *
+     * @param login login de l'utilisateur recherché
+     * @return l'utilisateur correspondant au login
+     */
+    @Transactional(readOnly = true)
+    public Optional<User> findByLogin(String login) {
+        LOG.trace("Searching user with username {} from DB", login);
+        return userRepository.findByLoginIgnoreCase(login);
+    }
+
+    /**
+     * Récupère un utilisateur à partir de son email
+     *
+     * @param email email de l'utilisateur recherché
+     * @return l'utilisateur correspondant au mail
+     */
+    @Transactional(readOnly = true)
+    public Optional<User> findByEmail(String email) {
+        LOG.trace("Searching user with email {} from DB", email);
+        return userRepository.findByEmail(email);
     }
 
     /**

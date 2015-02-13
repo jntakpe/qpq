@@ -1,4 +1,6 @@
-qpqApp.directive('compareTo', compareTo);
+qpqApp
+    .directive('compareToValidator', compareTo)
+    .directive('availableValidator', available);
 
 function compareTo() {
     "use strict";
@@ -16,6 +18,20 @@ function compareTo() {
             scope.$watch('other', function () {
                 ngModel.$validate();
             });
+        }
+    };
+}
+
+function available($http) {
+    return {
+        require: 'ngModel',
+        scope: {
+            url: '@availableValidator'
+        },
+        link: function (scope, elements, attributes, ngModel) {
+            ngModel.$asyncValidators.available = function (value) {
+                return $http.get(scope.url + "?value=" + value);
+            };
         }
     };
 }

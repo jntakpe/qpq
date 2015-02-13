@@ -1,15 +1,16 @@
 qpqApp.controller('RegisterController', RegisterController);
 
-function RegisterController($rootScope, Auth) {
+function RegisterController(Auth) {
     var vm = this;
     vm.user = {};
 
     vm.register = function (form) {
         if (form.$valid) {
-            console.log("Sending form : " + vm.user);
-        } else {
-            console.log("Invalid form");
-
+            Auth.createAccount(vm.user).then(function () {
+                console.log("Acc created");
+            }).catch(function () {
+                console.log("Error creating acc");
+            });
         }
     };
 }
