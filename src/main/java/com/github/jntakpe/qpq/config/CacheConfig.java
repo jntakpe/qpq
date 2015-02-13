@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,7 @@ import java.util.Map;
  */
 @Configuration
 @EnableCaching
+@ConditionalOnWebApplication
 @AutoConfigureAfter(DataSourceConfig.class)
 public class CacheConfig {
 

@@ -84,6 +84,26 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         userService.findByLoginWithAuthorities("nobody");
     }
 
+    @Test
+    public void testFindByLogin_shouldFindUser() {
+        assertThat(userService.findByLogin("jntakpe").isPresent()).isTrue();
+    }
+
+    @Test
+    public void testFindByLogin_shouldNotFindUser() {
+        assertThat(userService.findByLogin("unknown").isPresent()).isFalse();
+    }
+
+    @Test
+    public void testFindByEmail_shouldFindUser() {
+        assertThat(userService.findByEmail("jntakpe@gmail.com").isPresent()).isTrue();
+    }
+
+    @Test
+    public void testFindByEmail_shouldNotFindUser() {
+        assertThat(userService.findByEmail("unknow123@gmail.com").isPresent()).isFalse();
+    }
+
     private Integer countUsers() {
         return jdbcTemplate.queryForObject(USER_COUNT_QUERY, Integer.class);
     }

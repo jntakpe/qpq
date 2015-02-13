@@ -5,7 +5,15 @@ spring:
     password: sopra*
     driverClassName: org.postgresql.Driver
   jpa:
+    openInView: false
+    show-sql: true
+    generate-ddl: false
     hibernate:
       ddl-auto: create
+    properties:
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      hibernate.format_sql: true
 liquibase:
   enabled: false
