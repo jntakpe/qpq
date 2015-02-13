@@ -20,7 +20,7 @@
 
     <logger name="org.hibernate.validator" level="WARN"/>
 
-    <logger name="org.hibernate.type" level="DEBUG"/>
+    <logger name="org.hibernate.type" level="INFO"/>
 
     <logger name="com.zaxxer.hikari" level="WARN"/>
 
@@ -28,7 +28,7 @@
 
     <logger name="org.springframework.web" level="WARN"/>
 
-    <logger name="org.springframework.security" level="DEBUG"/>
+    <logger name="org.springframework.security" level="WARN"/>
 
     <logger name="org.springframework.cache" level="WARN"/>
 

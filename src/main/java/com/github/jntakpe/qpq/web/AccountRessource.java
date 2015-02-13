@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -46,12 +44,24 @@ public class AccountRessource {
     }
 
     /**
+     * Enregistrement d'un nouvel utilisateur
+     *
+     * @param user utilisateur à créer
+     * @return l'utilisateur créé
+     */
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<User> register(@Valid @RequestBody User user) {
+        //FIXME send mail too
+        return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
+    }
+
+    /**
      * Vérifie que le login n'est pas utilisé
      *
      * @param login login à vérifier
      * @return {@code HttpStatus.OK} si le login est libre sinon {@code HttpStatus.CONFLICT}
      */
-    @RequestMapping(value = "/register/login", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/register/login", method = RequestMethod.GET)
     public ResponseEntity<String> loginAvailable(@RequestParam(value = "value") String login) {
         return userService.findByLogin(login)
                 .map(user -> new ResponseEntity<>("Login not available", HttpStatus.CONFLICT))
@@ -64,7 +74,7 @@ public class AccountRessource {
      * @param email email à vérfier
      * @return {@code HttpStatus.OK} si le email est libre sinon {@code HttpStatus.CONFLICT}
      */
-    @RequestMapping(value = "/register/email", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/register/email", method = RequestMethod.GET)
     public ResponseEntity<String> emailAvailable(@RequestParam(value = "value") String email) {
         return userService.findByEmail(email)
                 .map(user -> new ResponseEntity<>("Email not available", HttpStatus.CONFLICT))

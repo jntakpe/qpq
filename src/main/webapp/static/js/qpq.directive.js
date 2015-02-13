@@ -8,7 +8,7 @@ function compareTo() {
     return {
         require: 'ngModel',
         scope: {
-            other: '=compareTo'
+            other: '=compareToValidator'
         },
         link: function (scope, element, attributes, ngModel) {
             ngModel.$validators.compareTo = function (modelValue) {

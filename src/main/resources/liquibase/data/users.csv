@@ -1,3 +1,3 @@
-id;login;password;first_name;last_name;email;activated;created_by
-1;jntakpe;$2a$10$I7jK3us6BhjLWFmOFOdgKeikb5HUM.mIWOltv4RLNOzKJOJQj2eva;Jocelyn;Ntakpé;jntakpe@gmail.com;true;system
-2;system;$2a$10$mE.qmcV0mFU5NcKh73TZx.z4ueI/.bDWbj0T1BYyqP481kGGarKLG;NULL;System;NULL;true;system
+login;password;first_name;last_name;email;activated;created_by
+jntakpe;$2a$10$I7jK3us6BhjLWFmOFOdgKeikb5HUM.mIWOltv4RLNOzKJOJQj2eva;Jocelyn;Ntakpé;jntakpe@gmail.com;true;system
+system;$2a$10$mE.qmcV0mFU5NcKh73TZx.z4ueI/.bDWbj0T1BYyqP481kGGarKLG;NULL;System;NULL;true;system
