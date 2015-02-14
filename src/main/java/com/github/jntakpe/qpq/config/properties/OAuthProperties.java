@@ -1,6 +1,5 @@
 package com.github.jntakpe.qpq.config.properties;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,6 @@ import javax.validation.constraints.NotNull;
  * @author jntakpe
  */
 @Component
-@ConditionalOnWebApplication
 @ConfigurationProperties("authentication.oauth")
 public class OAuthProperties {
 

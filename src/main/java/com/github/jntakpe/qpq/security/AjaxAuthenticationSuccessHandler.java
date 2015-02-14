@@ -1,6 +1,5 @@
 package com.github.jntakpe.qpq.security;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,6 @@ import java.io.IOException;
  * @author jntakpe
  */
 @Component
-@ConditionalOnWebApplication
 public class AjaxAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     /**

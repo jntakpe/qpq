@@ -17,3 +17,15 @@ spring:
       hibernate.format_sql: true
 liquibase:
   enabled: false
+cache:
+  port: 5709
+  backupCount: 0
+  evictionPolicy: LRU
+  evictionPercentage: 25
+  timeToLive: 60
+authentication:
+    oauth:
+        clientId: qpqapp
+        secret: mySecretOAuthSecretTest
+        tokenValidityInSeconds: 1800
+        rememberMeKey: qpqsecurekeyTest

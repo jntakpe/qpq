@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,10 +34,13 @@ public class UserService {
 
     private AuthorityRepository authorityRepository;
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository) {
+    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -47,7 +51,7 @@ public class UserService {
      */
     @Transactional
     public User create(User user) {
-        //FIXME encode password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         addDefaultAuthorities(user);
         user.setActivationKey(RandomStringUtils.randomAlphanumeric(KEY_LENGTH));
         LOG.debug("Creating user {}", user);

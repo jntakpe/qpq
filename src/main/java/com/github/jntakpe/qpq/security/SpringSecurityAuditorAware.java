@@ -1,7 +1,6 @@
 package com.github.jntakpe.qpq.security;
 
 import com.github.jntakpe.qpq.config.Constants;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
  * @author jntakpe
  */
 @Component
-@ConditionalOnWebApplication
 public class SpringSecurityAuditorAware implements AuditorAware<String> {
 
     /**

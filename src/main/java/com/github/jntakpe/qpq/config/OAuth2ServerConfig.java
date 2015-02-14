@@ -5,7 +5,6 @@ import com.github.jntakpe.qpq.security.AjaxLogoutSuccessHandler;
 import com.github.jntakpe.qpq.security.Http401UnauthorizedEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,12 +22,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import javax.sql.DataSource;
 
 @Configuration
-@ConditionalOnWebApplication
 public class OAuth2ServerConfig {
 
     @Configuration
     @EnableResourceServer
-    @ConditionalOnWebApplication
     protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
         @Autowired
@@ -75,7 +72,6 @@ public class OAuth2ServerConfig {
 
     @Configuration
     @EnableAuthorizationServer
-    @ConditionalOnWebApplication
     protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
         @Autowired

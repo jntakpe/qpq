@@ -8,7 +8,11 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -23,7 +27,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author jntakpe
  */
 @IntegrationTest
+@WebAppConfiguration
 @SpringApplicationConfiguration(classes = QpqApp.class)
+@TestExecutionListeners(inheritListeners = false,
+        listeners = {DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class})
 public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     public static final String USER_COUNT_QUERY = "select count(*) from t_user";
@@ -54,6 +61,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         User user = userService.create(fakeUser("toto"));
         assertThat(user).isNotNull();
         assertThat(countUsers()).isEqualTo(initCount + 1);
+        assertThat(user.getPassword()).isNotEqualTo("password");
     }
 
     @Test(expectedExceptions = DataIntegrityViolationException.class)

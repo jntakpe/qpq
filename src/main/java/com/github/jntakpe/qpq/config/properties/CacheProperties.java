@@ -1,7 +1,6 @@
 package com.github.jntakpe.qpq.config.properties;
 
 import com.hazelcast.config.EvictionPolicy;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +12,6 @@ import javax.validation.constraints.NotNull;
  * @author jntakpe
  */
 @Component
-@ConditionalOnWebApplication
 @ConfigurationProperties("cache")
 public class CacheProperties {
 
