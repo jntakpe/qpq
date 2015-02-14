@@ -2,6 +2,9 @@
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="reg-page">
             <div class="reg-header">
+                <alert ng-if="register.alert.active" type="danger" close="register.closeAlert()">
+                    <i class="fa fa-warning"></i> <strong>Erreur ! </strong>{{ register.alert.msg }}
+                </alert>
                 <h2>Création d'un compte utilisateur</h2>
 
                 <p>Déjà utilisateur ? Cliquez <a href="#/login" class="color-green">Connexion</a> pour vous connecter.
