@@ -4,7 +4,7 @@ qpqApp.config(function ($stateProvider) {
     $stateProvider
         .state('home', {
             parent: 'site',
-            url: '/',
+            url: '/?firstConnexion',
             data: {
                 roles: []
             },
