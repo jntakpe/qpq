@@ -62,10 +62,10 @@ public class AccountRessource {
      * @return {@code HttpStatus.OK} si le login est libre sinon {@code HttpStatus.CONFLICT}
      */
     @RequestMapping(value = "/register/login", method = RequestMethod.GET)
-    public ResponseEntity<String> loginAvailable(@RequestParam(value = "value") String login) {
+    public ResponseEntity loginAvailable(@RequestParam(value = "value") String login) {
         return userService.findByLogin(login)
-                .map(user -> new ResponseEntity<>("Login not available", HttpStatus.CONFLICT))
-                .orElse(new ResponseEntity<>(HttpStatus.OK));
+                .map(user -> new ResponseEntity(HttpStatus.CONFLICT))
+                .orElse(new ResponseEntity(HttpStatus.OK));
     }
 
     /**
@@ -75,10 +75,10 @@ public class AccountRessource {
      * @return {@code HttpStatus.OK} si le email est libre sinon {@code HttpStatus.CONFLICT}
      */
     @RequestMapping(value = "/register/email", method = RequestMethod.GET)
-    public ResponseEntity<String> emailAvailable(@RequestParam(value = "value") String email) {
+    public ResponseEntity emailAvailable(@RequestParam(value = "value") String email) {
         return userService.findByEmail(email)
-                .map(user -> new ResponseEntity<>("Email not available", HttpStatus.CONFLICT))
-                .orElse(new ResponseEntity<>(HttpStatus.OK));
+                .map(user -> new ResponseEntity(HttpStatus.CONFLICT))
+                .orElse(new ResponseEntity(HttpStatus.OK));
     }
 
 }
