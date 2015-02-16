@@ -2,6 +2,16 @@ qpqApp.controller('HomeController', HomeController);
 
 function HomeController($stateParams) {
     "use strict";
-    console.log($stateParams);
-    console.log($stateParams.firstConnexion);
+    var vm = this;
+    vm.alert = {
+        active: false,
+        type: 'success'
+    };
+    if ($stateParams.firstConnexion) {
+        vm.alert.active = true,
+            vm.alert.msg = 'Création du compte effectuée. Un mail d\'activation vous a été envoyé.'
+    }
+    vm.closeAlert = function () {
+        vm.alert.active = false;
+    };
 }

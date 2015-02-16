@@ -1,3 +1,7 @@
+<alert ng-if="home.alert.active" type="{{home.alert.type}}" close="home.closeAlert()">
+    <i class="fa" ng-class="home.alert.type === 'success' ? 'fa-check': 'fa-warning'"></i>
+    <strong ng-if="home.alert.type === 'danger'">Erreur ! </strong>{{home.alert.msg}}
+</alert>
 <h1>QPQ super home page</h1>
 <a href="#/login" class="btn btn-primary">Login page</a>
 <a href="#/docs" class="btn btn-primary">Swagger UI page</a>
