@@ -1,18 +1,35 @@
-<div>
-    <h1>Login page</h1>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+        <form class="reg-page sky-form" role="form">
+            <div class="reg-header">
+                <h2>Connexion</h2>
+            </div>
 
-    <div class="alert alert-danger" ng-show="login.authenticationError">
-        <strong>Authentication failed!</strong> Please check your credentials and try again.
+            <div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input placeholder="Nom d'utilisateur" class="form-control" type="text" ng-model="login.username">
+            </div>
+            <div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input placeholder="Mot de passe" class="form-control" type="password" ng-model="login.password">
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <label class="checkbox"><input type="checkbox" /><i></i> Rester connecté ?</label>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn-u pull-right" type="submit" ng-click="login.login()">
+                        <i class="fa fa-sign-in"></i> Login
+                    </button>
+                </div>
+            </div>
+
+            <hr>
+
+            <h4>Mot de passe oublié ?</h4>
+
+            <p><a class="color-green" href="#/resetpassword">cliquez ici</a> pour mettre à jour votre mot de passe.</p>
+        </form>
     </div>
-    <form class="form" role="form">
-        <div class="form-group">
-            <label for="username">Login</label>
-            <input type="text" id="username" name="username" ng-model="login.username" class="form-control"/>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" ng-model="login.password" class="form-control"/>
-        </div>
-        <button type="submit" class="btn btn-primary" ng-click="login.login()">Login</button>
-    </form>
 </div>
