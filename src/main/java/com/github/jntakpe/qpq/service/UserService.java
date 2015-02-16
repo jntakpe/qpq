@@ -52,8 +52,8 @@ public class UserService {
     @Transactional
     public User create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        addDefaultAuthorities(user);
         user.setActivationKey(RandomStringUtils.randomAlphanumeric(KEY_LENGTH));
+        addDefaultAuthorities(user);
         LOG.debug("Creating user {}", user);
         return userRepository.save(user);
     }
