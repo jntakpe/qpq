@@ -1,10 +1,11 @@
 qpqApp.controller('LoginController', LoginController);
 
-function LoginController($rootScope, $timeout, Auth) {
+function LoginController($rootScope, Auth) {
     var vm = this;
-    $timeout(function () {
-        angular.element('[ng-model="username"]').focus();
-    });
+    vm.alert = {
+        msg: 'Identifiants invalides.',
+        active: false
+    };
     vm.login = function () {
         Auth.login({
             username: vm.username,
@@ -14,7 +15,12 @@ function LoginController($rootScope, $timeout, Auth) {
             vm.authenticationError = false;
             $rootScope.back();
         }).catch(function () {
-            vm.authenticationError = true;
+            vm.alert.active = true;
+            vm.username = '';
+            vm.password = '';
         });
+    };
+    vm.closeAlert = function () {
+        vm.alert.active = false;
     };
 }

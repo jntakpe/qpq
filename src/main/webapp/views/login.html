@@ -2,6 +2,9 @@
     <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
         <form class="reg-page sky-form" role="form">
             <div class="reg-header">
+                <alert type="danger" ng-if="login.alert.active" close="login.closeAlert()">
+                    <i class="fa fa-warning"></i> <strong>Erreur ! </strong> {{login.alert.msg}}
+                </alert>
                 <h2>Connexion</h2>
             </div>
 
