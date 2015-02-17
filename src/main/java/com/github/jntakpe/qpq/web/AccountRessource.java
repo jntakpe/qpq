@@ -1,5 +1,6 @@
 package com.github.jntakpe.qpq.web;
 
+import com.codahale.metrics.annotation.Timed;
 import com.github.jntakpe.qpq.domain.User;
 import com.github.jntakpe.qpq.service.UserService;
 import org.slf4j.Logger;
@@ -36,6 +37,7 @@ public class AccountRessource {
      *
      * @return les donneés de l'utilisateur courant
      */
+    @Timed
     @RequestMapping(value = "/account", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> currentUserAccount() {
         return Optional.ofNullable(userService.findCurrentUserWithAuthorities())
@@ -49,6 +51,7 @@ public class AccountRessource {
      * @param user utilisateur à créer
      * @return l'utilisateur créé
      */
+    @Timed
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<User> register(@Valid @RequestBody User user) {
         //FIXME send mail too
@@ -61,6 +64,7 @@ public class AccountRessource {
      * @param login login à vérifier
      * @return {@code HttpStatus.OK} si le login est libre sinon {@code HttpStatus.CONFLICT}
      */
+    @Timed
     @RequestMapping(value = "/register/login", method = RequestMethod.GET)
     public ResponseEntity loginAvailable(@RequestParam(value = "value") String login) {
         return userService.findByLogin(login)
@@ -74,6 +78,7 @@ public class AccountRessource {
      * @param email email à vérfier
      * @return {@code HttpStatus.OK} si le email est libre sinon {@code HttpStatus.CONFLICT}
      */
+    @Timed
     @RequestMapping(value = "/register/email", method = RequestMethod.GET)
     public ResponseEntity emailAvailable(@RequestParam(value = "value") String email) {
         return userService.findByEmail(email)
