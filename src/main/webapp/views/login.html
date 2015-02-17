@@ -20,7 +20,10 @@
 
             <div class="row">
                 <div class="col-md-8">
-                    <label class="checkbox"><input type="checkbox"/><i></i> Rester connecté ?</label>
+                    <!-- FIXME Vérifier que le rememberme soit faisable sous OAuth2-->
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="login.rememberMe"/><i></i> Rester connecté ?
+                    </label>
                 </div>
                 <div class="col-md-4">
                     <button class="btn-u pull-right" type="submit" ng-click="login.login()">
