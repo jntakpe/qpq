@@ -1,4 +1,4 @@
-authApp.factory('OAuth', OAuth);
+qpqApp.factory('OAuth', OAuth);
 
 function OAuth($http, localStorageService) {
     "use strict";

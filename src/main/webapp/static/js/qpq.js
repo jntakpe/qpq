@@ -1,5 +1,4 @@
-var homeApp = angular.module('homeApp', []),
-    qpqApp = angular.module('qpqApp', ['ngMessages', 'ui.router', 'ui.bootstrap', 'ngResource', 'homeApp', 'authApp']);
+var qpqApp = angular.module('qpqApp', ['ngMessages', 'ui.router', 'ui.bootstrap', 'ngResource', 'LocalStorageModule']);
 
 qpqApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     "use strict";

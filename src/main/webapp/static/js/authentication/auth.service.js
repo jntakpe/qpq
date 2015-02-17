@@ -1,4 +1,4 @@
-authApp.factory('Auth', Auth);
+qpqApp.factory('Auth', Auth);
 
 function Auth($rootScope, $q, Principal, OAuth, Account, $state) {
     "use strict";

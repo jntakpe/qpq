@@ -1,4 +1,4 @@
-authApp.factory('Principal', Principal);
+qpqApp.factory('Principal', Principal);
 
 function Principal($q, Account) {
     "use strict";

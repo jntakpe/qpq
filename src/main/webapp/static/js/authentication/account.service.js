@@ -1,4 +1,4 @@
-authApp.factory('Account', Account);
+qpqApp.factory('Account', Account);
 
 function Account($resource) {
     "use strict";

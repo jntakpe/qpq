@@ -1,4 +1,4 @@
-authApp.factory('AuthInterceptor', AuthInterceptor);
+qpqApp.factory('AuthInterceptor', AuthInterceptor);
 
 function AuthInterceptor(localStorageService) {
     "use strict";
