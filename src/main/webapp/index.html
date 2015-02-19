@@ -16,14 +16,11 @@
 <body ng-app="qpqApp">
 <div ui-view="header" ng-cloak></div>
 <div class="wrapper">
+    <!-- Vues AngularJS-->
+    <div ui-view="content">
 
-    <div class="container content">
-        <!-- Vues AngularJS-->
-        <div ui-view="content">
-
-        </div>
-        <!--End vues AngularJS-->
     </div>
+    <!--End vues AngularJS-->
 </div>
 <script src="dist/js/third-party.min.js"></script>
 <script src="dist/js/core.js"></script>
