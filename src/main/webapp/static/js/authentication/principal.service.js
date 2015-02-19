@@ -13,13 +13,18 @@ function Principal($q, Account) {
             return authenticated;
         },
         isInRole: function (role) {
-            if (!authenticated || !identity.roles) {
+            if (!authenticated || !identity.authorities) {
                 return false;
             }
-            return identity.roles.indexOf(role) !== -1;
+            for (var i = 0; i < identity.authorities.length; i++) {
+                if (identity.authorities[i].name === role) {
+                    return true;
+                }
+            }
+            return false;
         },
         isInAnyRole: function (roles) {
-            if (!authenticated || !identity.roles) {
+            if (!authenticated || !identity.authorities) {
                 return false;
             }
             for (var i = 0; i < roles.length; i++) {
