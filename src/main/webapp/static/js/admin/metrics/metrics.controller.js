@@ -4,8 +4,14 @@ function MetricsController(Metrics) {
     "use strict";
 
     var vm = this;
-    vm.metrics = {};
+    vm.data = {};
+    vm.refresh = function () {
+        Metrics.findMetrics().then(function (promise) {
+            vm.data = promise;
+        }, function (promise) {
+            vm.data = promise.data;
+        });
+    };
 
-
-
+    vm.refresh();
 }

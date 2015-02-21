@@ -3,7 +3,7 @@ qpqApp.config(function ($stateProvider) {
         parent: 'admin',
         url: '/metrics',
         data: {
-            roles: ['ROLE_ADMIN']
+            roles: []
         },
         views: {
             'content@': {

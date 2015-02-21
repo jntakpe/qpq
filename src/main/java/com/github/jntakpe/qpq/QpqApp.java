@@ -5,20 +5,24 @@ import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.actuate.autoconfigure.MetricFilterAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Classe démarrant l'application Spring Boot
  *
  * @author jntakpe
  */
-@SpringBootApplication
+@Configuration
 @EnableConfigurationProperties
-@ComponentScan("com.github.jntakpe.qpq") // juste pour IntelliJ
+@ComponentScan("com.github.jntakpe.qpq")
+@EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class})
 public class QpqApp extends SpringBootServletInitializer {
 
     private static final Logger LOG = LoggerFactory.getLogger(QpqApp.class);
