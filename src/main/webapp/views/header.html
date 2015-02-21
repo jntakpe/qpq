@@ -32,7 +32,7 @@
             </div>
             <div class="collapse navbar-collapse navbar-responsive-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="dropdown active">
+                    <li class="dropdown" ng-show="header.isInRole('ROLE_ADMIN')">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                             Administration
                         </a>

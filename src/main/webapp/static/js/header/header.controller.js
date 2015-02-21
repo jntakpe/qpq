@@ -3,10 +3,11 @@ qpqApp.controller('HeaderController', HeaderController);
 function HeaderController(Auth, Principal, $state) {
     "use strict";
 
-    this.isAuthenticated = Principal.isAuthenticated;
-    this.isInRole = Principal.isInRole;
-    this.$state = $state;
-    this.logout = function () {
+    var vm = this;
+    vm.isAuthenticated = Principal.isAuthenticated;
+    vm.isInRole = Principal.isInRole;
+    vm.$state = $state;
+    vm.logout = function () {
         Auth.logout();
         $state.go('home');
     };
