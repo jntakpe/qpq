@@ -1,6 +1,6 @@
 qpqApp.controller('MetricsController', MetricsController);
 
-function MetricsController(Metrics) {
+function MetricsController($scope, Metrics) {
     "use strict";
 
     var vm = this;
@@ -12,6 +12,13 @@ function MetricsController(Metrics) {
             vm.data = promise.data;
         });
     };
+
+    $scope.$watch(
+        angular.bind(vm, function () {
+            return vm.data;
+        }), function (stats) {
+            vm.stats = Metrics.extractStats(stats);
+        });
 
     vm.refresh();
 }

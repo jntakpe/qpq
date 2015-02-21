@@ -6,7 +6,6 @@ import com.codahale.metrics.servlets.MetricsServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,7 +22,6 @@ import java.util.EnumSet;
  * @author jntakpe
  */
 @Configuration
-@AutoConfigureAfter(CacheConfig.class)
 public class WebConfig implements ServletContextInitializer {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebConfig.class);

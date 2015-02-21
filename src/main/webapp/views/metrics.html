@@ -10,22 +10,14 @@
 </div>
 <div class="container content">
 
-    <h1>Metrics</h1>
-
-    <p>
-        <button type="button" class="btn btn-primary" ng-click="refresh()"><span
-                class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh
-        </button>
-    </p>
-
     <h3>JVM Metrics</h3>
 
     <div class="row">
         <div class="col-md-4">
             <b>Memory</b>
 
-            <p>{{metrics.data.gauges['jvm.memory.total.used'].value / 1000000 |
-                number:0}}M / {{metrics.data.gauges['jvm.memory.total.max'].value / 1000000 | number:0}}</p>
+            <p>Total Memory ({{metrics.data.gauges['jvm.memory.total.used'].value / 1000000 |
+                number:0}}M / {{metrics.data.gauges['jvm.memory.total.max'].value / 1000000 | number:0}})</p>
 
             <div class="progress progress-striped">
                 <div class="progress-bar progress-bar-success" role="progressbar"
@@ -38,8 +30,8 @@
                     | number:0}}%
                 </div>
             </div>
-            <p>{{metrics.data.gauges['jvm.memory.heap.used'].value / 1000000 |
-                number:0}}M / {{metrics.data.gauges['jvm.memory.heap.max'].value / 1000000 | number:0}}</p>
+            <p>Heap Memory ({{metrics.data.gauges['jvm.memory.heap.used'].value / 1000000 |
+                number:0}}M / {{metrics.data.gauges['jvm.memory.heap.max'].value / 1000000 | number:0}})</p>
 
             <div class="progress progress-striped">
                 <div class="progress-bar progress-bar-success" role="progressbar"
@@ -50,9 +42,9 @@
                     {{(metrics.data.gauges['jvm.memory.heap.usage'].value * 100 | number:0)}}%
                 </div>
             </div>
-            <p>{{metrics.data.gauges['jvm.memory.non-heap.used'].value /
+            <p>Non Heap Memory ({{metrics.data.gauges['jvm.memory.non-heap.used'].value /
                 1000000 | number:0}}M / {{metrics.data.gauges['jvm.memory.non-heap.committed'].value / 1000000 |
-                number:0}}</p>
+                number:0}})</p>
 
             <div class="progress progress-striped">
                 <div class="progress-bar progress-bar-success" role="progressbar"
@@ -70,7 +62,7 @@
             <a class="hand" data-toggle="modal" data-target="#threadDump"><i
                     class="glyphicon glyphicon-eye-open"></i></a>
 
-            <p>{{metrics.data.gauges['jvm.threads.runnable.count'].value}}</p>
+            <p>Runnable {{metrics.data.gauges['jvm.threads.runnable.count'].value}}</p>
 
             <div class="progress progress-striped">
                 <div class="progress-bar progress-bar-success" role="progressbar"
@@ -82,7 +74,7 @@
                     metrics.data.gauges['jvm.threads.count'].value | number:0}}%
                 </div>
             </div>
-            <p>{{metrics.data.gauges['jvm.threads.timed_waiting.count'].value}}</p>
+            <p>Timed waiting {{metrics.data.gauges['jvm.threads.timed_waiting.count'].value}}</p>
 
             <div class="progress progress-striped">
                 <div class="progress-bar progress-bar-warning" role="progressbar"
@@ -94,7 +86,7 @@
                     metrics.data.gauges['jvm.threads.count'].value | number:0}}%
                 </div>
             </div>
-            <p>{{metrics.data.gauges['jvm.threads.waiting.count'].value}}</p>
+            <p>Waiting {{metrics.data.gauges['jvm.threads.waiting.count'].value}}</p>
 
             <div class="progress progress-striped">
                 <div class="progress-bar progress-bar-warning" role="progressbar"
@@ -106,7 +98,7 @@
                     metrics.data.gauges['jvm.threads.count'].value | number:0}}%
                 </div>
             </div>
-            <p>{{metrics.data.gauges['jvm.threads.blocked.count'].value}}</p>
+            <p>Blocked {{metrics.data.gauges['jvm.threads.blocked.count'].value}}</p>
 
             <div class="progress progress-striped">
                 <div class="progress-bar progress-bar-danger" role="progressbar"
@@ -140,13 +132,14 @@
             </div>
         </div>
     </div>
-    <div class="well well-lg">Updating...</div>
 
     <h3>HTTP requests (events per second)</h3>
 
-    <p>Active thread<b>{{metrics.data.counters['com.codahale.metrics.data.servlet.InstrumentedFilter.activeRequests'].count
-        | number:0}}</b> - Total thread<b>{{metrics.data.timers['com.codahale.metrics.data.servlet.InstrumentedFilter.requests'].count
-        | number:0}}</b></p>
+    <p>Active requests
+        <b>{{metrics.data.counters['com.codahale.metrics.servlet.InstrumentedFilter.activeRequests'].count |
+            number:0}}</b>
+        - Total requests <b>{{metrics.data.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count |
+            number:0}}</b></p>
 
     <div class="table-responsive">
         <table class="table table-striped">
@@ -155,9 +148,9 @@
                 <th>Code</th>
                 <th>Count</th>
                 <th class="text-right">Mean</th>
-                <th class="text-right">(1 min)</th>
-                <th class="text-right">(5 min)</th>
-                <th class="text-right">(15 min)</th>
+                <th class="text-right">Average (1 min)</th>
+                <th class="text-right">Average (5 min)</th>
+                <th class="text-right">Average (15 min)</th>
             </tr>
             </thead>
             <tbody>
@@ -166,31 +159,31 @@
                 <td>
                     <div class="progress progress-striped">
                         <div class="progress-bar progress-bar-success" role="progressbar"
-                             aria-valuenow="{{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.ok'].count * 100 / metrics.data.timers['com.codahale.metrics.data.servlet.InstrumentedFilter.requests'].count}}"
+                             aria-valuenow="{{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].count * 100 / metrics.data.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count}}"
                              aria-valuemin="0"
-                             aria-valuemax="{{metrics.data.timers['com.codahale.metrics.data.servlet.InstrumentedFilter.requests'].count}}"
-                             ng-style="{width: ((metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.ok'].count * 100 / metrics.data.timers['com.codahale.metrics.data.servlet.InstrumentedFilter.requests'].count) | number:0) + '%'}">
-                            {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.ok'].count}}
+                             aria-valuemax="{{metrics.data.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count}}"
+                             ng-style="{width: ((metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].count * 100 / metrics.data.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count) | number:0) + '%'}">
+                            {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].count}}
                         </div>
                     </div>
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.ok'].mean_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].mean_rate
                     |
                     number:2}}
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.ok'].m1_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].m1_rate
                     |
                     number:2}}
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.ok'].m5_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].m5_rate
                     |
                     number:2}}
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.ok'].m15_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok'].m15_rate
                     |
                     number:2}}
                 </td>
@@ -200,30 +193,30 @@
                 <td>
                     <div class="progress progress-striped">
                         <div class="progress-bar progress-bar-warning" role="progressbar"
-                             aria-valuenow="{{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.notFound'].count * 100 / metrics.data.timers['com.codahale.metrics.data.servlet.InstrumentedFilter.requests'].count}}"
+                             aria-valuenow="{{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].count * 100 / metrics.data.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count}}"
                              aria-valuemin="0"
-                             aria-valuemax="{{metrics.data.timers['com.codahale.metrics.data.servlet.InstrumentedFilter.requests'].count}}"
-                             ng-style="{width: ((metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.notFound'].count * 100 / metrics.data.timers['com.codahale.metrics.data.servlet.InstrumentedFilter.requests'].count) | number:0) + '%'}">
-                            {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.notFound'].count}}
+                             aria-valuemax="{{metrics.data.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count}}"
+                             ng-style="{width: ((metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].count * 100 / metrics.data.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count) | number:0) + '%'}">
+                            {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].count}}
                         </div>
                     </div>
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.notFound'].mean_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].mean_rate
                     | number:2}}
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.notFound'].m1_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].m1_rate
                     |
                     number:2}}
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.notFound'].m5_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].m5_rate
                     |
                     number:2}}
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.notFound'].m15_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound'].m15_rate
                     | number:2}}
                 </td>
             </tr>
@@ -232,28 +225,28 @@
                 <td>
                     <div class="progress progress-striped">
                         <div class="progress-bar progress-bar-danger" role="progressbar"
-                             aria-valuenow="{{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.serverError'].count * 100 / metrics.data.timers['com.codahale.metrics.data.servlet.InstrumentedFilter.requests'].count}}"
+                             aria-valuenow="{{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].count * 100 / metrics.data.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count}}"
                              aria-valuemin="0"
-                             aria-valuemax="{{metrics.data.timers['com.codahale.metrics.data.servlet.InstrumentedFilter.requests'].count}}"
-                             ng-style="{width: ((metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.serverError'].count * 100 / metrics.data.timers['com.codahale.metrics.data.servlet.InstrumentedFilter.requests'].count) | number:0) + '%'}">
-                            {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.serverError'].count}}
+                             aria-valuemax="{{metrics.data.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count}}"
+                             ng-style="{width: ((metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].count * 100 / metrics.data.timers['com.codahale.metrics.servlet.InstrumentedFilter.requests'].count) | number:0) + '%'}">
+                            {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].count}}
                         </div>
                     </div>
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.serverError'].mean_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].mean_rate
                     | number:2}}
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.serverError'].m1_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].m1_rate
                     | number:2}}
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.serverError'].m5_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].m5_rate
                     | number:2}}
                 </td>
                 <td class="text-right">
-                    {{metrics.data.meters['com.codahale.metrics.data.servlet.InstrumentedFilter.responseCodes.serverError'].m15_rate
+                    {{metrics.data.meters['com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError'].m15_rate
                     | number:2}}
                 </td>
             </tr>
@@ -261,13 +254,13 @@
         </table>
     </div>
 
-    <h3>Services statistics (time in millisecond)</h3>
+    <h3>Resource usage statistics (time in millisecond)</h3>
 
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Service name</th>
+                <th>Resource name</th>
                 <th class="text-right">Count</th>
                 <th class="text-right">Mean</th>
                 <th class="text-right">Min</th>
@@ -279,7 +272,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="(k, v) in servicesStats">
+            <tr ng-repeat="(k, v) in metrics.stats.resource">
                 <td>{{k}}</td>
                 <td class="text-right">{{v.count}}</td>
                 <td class="text-right">{{v.mean * 1000 | number:0}}</td>

@@ -159,12 +159,13 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= dirs.bowerRes %>/font-awesome/fonts/',
                         src: [
-                            '**'
+                            '<%= dirs.bowerRes %>/font-awesome/fonts/**',
+                            '<%= dirs.bowerRes %>/bootstrap/fonts/**'
                         ],
                         dest: '<%= dirs.target %>/fonts',
-                        filter: 'isFile'
+                        filter: 'isFile',
+                        flatten: true
                     }
                 ]
             },
