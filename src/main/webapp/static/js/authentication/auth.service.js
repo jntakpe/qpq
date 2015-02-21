@@ -28,7 +28,7 @@ function Auth($rootScope, $q, Principal, OAuth, Account, $state) {
                 if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0
                     && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
                     if (isAuthenticated) {
-                        $state.go('accessdenied');
+                        $state.go('home', {error: 'accessdenied'});
                     } else {
                         $rootScope.returnToState = $rootScope.toState;
                         $rootScope.returnToStateParams = $rootScope.toStateParams;

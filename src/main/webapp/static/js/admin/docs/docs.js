@@ -2,9 +2,7 @@ qpqApp.config(function ($stateProvider) {
     $stateProvider
         .state('docs', {
             url: '/docs',
-            data: {
-                roles: ['ROLE_ADMIN']
-            },
+            parent: 'admin',
             views: {
                 'content@': {
                     templateUrl: 'views/docs.html'
