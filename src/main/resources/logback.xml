@@ -32,6 +32,8 @@
 
     <logger name="org.springframework.cache" level="WARN"/>
 
+    <logger name="com.ryantenney.metrics" level="WARN"/>
+
     <logger name="com.mangofactory.swagger" level="WARN"/>
 
     <logger name="liquibase" level="WARN"/>
