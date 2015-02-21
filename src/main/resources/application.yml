@@ -39,8 +39,8 @@ authentication:
 ---
 spring:
   profiles: dev
-  datasource:
-    url: jdbc:postgresql://localhost:5432/qpq
-    username: postgres
-    password: sopra*
-    driverClassName: org.postgresql.Driver
+datasource:
+  url: jdbc:postgresql://localhost:5432/qpq
+  username: postgres
+  password: sopra*
+  dataSourceClassName: org.postgresql.ds.PGSimpleDataSource

@@ -3,7 +3,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/qpq-test
     username: postgres
     password: sopra*
-    driverClassName: org.postgresql.Driver
+    dataSourceClassName: org.postgresql.Driver
   jpa:
     openInView: false
     show-sql: true
