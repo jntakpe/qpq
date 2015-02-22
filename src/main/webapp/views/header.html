@@ -2,20 +2,17 @@
     <div class="topbar">
         <div class="container" ng-switch="header.isAuthenticated()">
             <ul ng-switch-when="true" class="loginbar pull-right">
-                <li><a ui-sref="account">Mon compte</a></li>
+                <li><a ui-sref="profile">Mon compte</a></li>
+                <li class="topbar-devider"></li>
+                <li><a ui-sref="project-create">Créer un projet</a></li>
                 <li class="topbar-devider"></li>
                 <li><a href="javascript:void(0);" ng-click="header.logout()">Déconnexion</a></li>
-                <li class="topbar-devider"></li>
-                <li><a ui-sref="help">Aide</a></li>
             </ul>
             <ul ng-switch-default class="loginbar pull-right">
                 <li><a ui-sref="login">Connexion</a></li>
                 <li class="topbar-devider"></li>
                 <li><a ui-sref="register">Créer un compte</a></li>
-                <li class="topbar-devider"></li>
-                <li><a ui-sref="faq">Aide</a></li>
             </ul>
-
         </div>
     </div>
     <div class="navbar navbar-default mega-menu" role="navigation">
