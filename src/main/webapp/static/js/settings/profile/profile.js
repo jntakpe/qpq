@@ -8,6 +8,5 @@ qpqApp.config(function ($stateProvider) {
                 controller: 'ProfileController as profile'
             }
         }
-
     });
 });

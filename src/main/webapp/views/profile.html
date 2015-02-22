@@ -1,1 +1,69 @@
-<h1>Haha my fucking super profile</h1>
+<div class="profile-body">
+    <div class="profile-bio">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row">
+                    <img src="/dist/img/default-profile.png" class="img-responsive md-margin-bottom-10"
+                         alt="Profile img"/>
+                    <a class="btn-u btn-u-sm" href="#"><i class="fa fa-edit"></i> Modifier</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="reg-page">
+                    <form name="form" role="form" class="sky-form" ng-submit="profile.edit(form)" novalidate>
+                        <label class="input"
+                               ng-class="{'state-error': (form.$submitted || form.login.$touched) && form.login.$invalid}">
+                            <i class="icon-prepend fa fa-sign-in"></i>
+                            <input id="login" name="login" class="form-control" type="text" placeholder="Login"
+                                   ng-model="register.user.login" maxlength="50" required ng-pattern="/^[a-zA-Z0-9]+$/"
+                                   available-validator="/api/register/login" ng-model-options="{ updateOn: 'blur' }"/>
+
+                            <div ng-messages="(form.$submitted || form.login.$touched) && form.login.$error"
+                                 class="note note-error">
+                                <div ng-message="pattern">Le login ne doit pas contenir d'accents ou de caractères
+                                    spéciaux.
+                                </div>
+                                <div ng-message="available">Ce login est déjà utilisé.</div>
+                            </div>
+
+                        </label>
+
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-user"></i>
+                                    <input id="first-name" name="first-name" class="form-control margin-top-20"
+                                           type="text"
+                                           placeholder="Prénom" ng-model="register.user.firstName" maxlength="50"/>
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-user"></i>
+                                    <input id="last-name" name="last-name" class="form-control margin-top-20"
+                                           type="text"
+                                           placeholder="Nom" ng-model="register.user.lastName" maxlength="50"/>
+                                </label>
+                            </section>
+                        </div>
+
+                        <label class="input"
+                               ng-class="{'state-error': (form.$submitted || form.email.$touched) && form.email.$invalid}">
+                            <i class="icon-prepend fa fa-envelope"></i>
+                            <input id="email" name="email" class="form-control margin-top-20" type="email"
+                                   placeholder="Email" ng-model="register.user.email" required
+                                   available-validator="/api/register/email" ng-model-options="{ updateOn: 'blur' }"/>
+
+                            <div ng-messages="(form.$submitted || form.email.$touched) && form.email.$error"
+                                 class="note note-error">
+                                <div ng-message="email">Veuillez renseigner une adresse mail valide.</div>
+                                <div ng-message="available">Cette adresse mail est déjà utilisée.</div>
+                            </div>
+                        </label>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

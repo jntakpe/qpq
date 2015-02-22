@@ -195,7 +195,7 @@ module.exports = function (grunt) {
             },
             css: {
                 files: '<%= dirs.source %>/css/*.css',
-                tasks: ['concat:coreCss']
+                tasks: ['cssmin:coreCss']
             }
         },
         clean: ['<%= dirs.target %>/'],

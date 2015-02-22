@@ -33,3 +33,8 @@
 .reg-page .sky-form {
     border: 0;
 }
+
+.profile .profile-bio .reg-page {
+    border: 0;
+    box-shadow: none;
+}
