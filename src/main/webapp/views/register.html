@@ -8,7 +8,7 @@
                     </alert>
                     <h2>Création d'un compte utilisateur</h2>
 
-                    <p>Déjà utilisateur ? Cliquez <a href="#/login" class="color-green">Connexion</a> pour vous
+                    <p>Déjà utilisateur ? Cliquez <a ui-sref="login" class="color-green">Connexion</a> pour vous
                         connecter.
                     </p>
                 </div>
@@ -109,7 +109,7 @@
                             <label class="checkbox"
                                    ng-class="{'state-error' : (form.$submitted || form.terms.$dirty) && form.terms.$invalid}">
                                 <input name="terms" type="checkbox" required ng-model="register.terms"><i></i>
-                                Lire les <a href="#/terms" class="color-green">conditions générales d'utilisation</a>
+                                Lire les <a ui-sref="terms" class="color-green">conditions générales d'utilisation</a>
 
                                 <div ng-messages="(form.$submitted || form.terms.$dirty) && form.terms.$error"
                                      class="note note-error">
