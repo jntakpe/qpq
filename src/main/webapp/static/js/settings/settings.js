@@ -1,15 +1,15 @@
 qpqApp.config(function ($stateProvider) {
     $stateProvider
-        .state('profile', {
+        .state('settings', {
             parent: 'site',
-            url: '/profile',
+            abstract: 'true',
             data: {
                 roles: ['ROLE_USER']
             },
             views: {
                 'content@': {
-                    templateUrl: 'views/profile.html',
-                    controller: 'ProfileController as profile'
+                    templateUrl: 'views/settings.html',
+                    controller: 'SettingsController as settings'
                 }
             }
         });
