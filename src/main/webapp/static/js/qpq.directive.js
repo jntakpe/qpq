@@ -27,11 +27,16 @@ function available($http) {
     return {
         require: 'ngModel',
         scope: {
-            url: '@availableValidator'
+            url: '@availableValidator',
+            id: '=formId'
         },
         link: function ($scope, elements, attributes, ngModel) {
             ngModel.$asyncValidators.available = function (value) {
-                return $http.get($scope.url + "?value=" + value);
+                var baseUrl = $scope.url + '?value=' + value;
+                if ($scope.id) {
+                    baseUrl += '&id=' + $scope.id;
+                }
+                return $http.get(baseUrl);
             };
         }
     };
