@@ -38,3 +38,7 @@
     border: 0;
     box-shadow: none;
 }
+
+.profile .profile-bio section {
+    margin-bottom: 0;
+}
