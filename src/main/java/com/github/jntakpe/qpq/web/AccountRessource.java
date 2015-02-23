@@ -6,13 +6,14 @@ import com.github.jntakpe.qpq.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.*;
 
 /**
  * Contrôlleur gérant les comptes utilisateurs
@@ -41,8 +42,8 @@ public class AccountRessource {
     @RequestMapping(value = "/account", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> currentUserAccount() {
         return Optional.ofNullable(userService.findCurrentUserWithAuthorities())
-                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+                .map(user -> new ResponseEntity<>(user, OK))
+                .orElse(new ResponseEntity<>(INTERNAL_SERVER_ERROR));
     }
 
     /**
@@ -55,35 +56,39 @@ public class AccountRessource {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<User> register(@Valid @RequestBody User user) {
         //FIXME send mail too
-        return new ResponseEntity<>(userService.create(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.create(user), CREATED);
     }
 
     /**
      * Vérifie que le login n'est pas utilisé
      *
-     * @param login login à vérifier
+     * @param value login à vérifier
      * @return {@code HttpStatus.OK} si le login est libre sinon {@code HttpStatus.CONFLICT}
      */
     @Timed
     @RequestMapping(value = "/register/login", method = RequestMethod.GET)
-    public ResponseEntity loginAvailable(@RequestParam(value = "value") String login) {
-        return userService.findByLogin(login)
-                .map(user -> new ResponseEntity(HttpStatus.CONFLICT))
-                .orElse(new ResponseEntity(HttpStatus.OK));
+    public ResponseEntity loginAvailable(@RequestParam String value, @RequestParam Optional<Long> id) {
+        return userService.findByLogin(value)
+                .map(user -> new ResponseEntity(isSameId(id, user) ? OK : CONFLICT))
+                .orElse(new ResponseEntity(OK));
     }
 
     /**
      * Vérifie que le mail n'est pas utilisé
      *
-     * @param email email à vérfier
+     * @param value email à vérfier
      * @return {@code HttpStatus.OK} si le email est libre sinon {@code HttpStatus.CONFLICT}
      */
     @Timed
     @RequestMapping(value = "/register/email", method = RequestMethod.GET)
-    public ResponseEntity emailAvailable(@RequestParam(value = "value") String email) {
-        return userService.findByEmail(email)
-                .map(user -> new ResponseEntity(HttpStatus.CONFLICT))
-                .orElse(new ResponseEntity(HttpStatus.OK));
+    public ResponseEntity emailAvailable(@RequestParam String value, @RequestParam Optional<Long> id) {
+        return userService.findByEmail(value)
+                .map(user -> new ResponseEntity(isSameId(id, user) ? OK : CONFLICT))
+                .orElse(new ResponseEntity(OK));
+    }
+
+    private boolean isSameId(Optional<Long> id, User user) {
+        return id.isPresent() && user.getId().equals(id.get());
     }
 
 }
