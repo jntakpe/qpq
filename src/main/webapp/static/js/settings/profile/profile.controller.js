@@ -1,8 +1,9 @@
 qpqApp.controller('ProfileController', ProfileController);
 
-function ProfileController() {
+function ProfileController(profile) {
     "use strict";
 
     var vm = this;
-    vm.user = {id: 3};
+    vm.myProfile = profile;
+
 }
