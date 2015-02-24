@@ -16,7 +16,4 @@ function HomeController($stateParams) {
             type: 'danger'
         }
     }
-    vm.closeAlert = function () {
-        vm.alert.active = false;
-    };
 }

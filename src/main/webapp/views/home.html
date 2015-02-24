@@ -1,5 +1,5 @@
 <div class="container content">
-    <alert ng-if="home.alert.active" type="{{home.alert.type}}" close="home.closeAlert()">
+    <alert ng-if="home.alert.active" type="{{home.alert.type}}" close="home.alert.active = false">
         <i class="fa" ng-class="home.alert.type === 'success' ? 'fa-check': 'fa-warning'"></i>
         <strong ng-if="home.alert.type === 'danger'">Erreur ! </strong>{{home.alert.msg}}
     </alert>

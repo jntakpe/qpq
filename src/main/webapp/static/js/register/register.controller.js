@@ -16,7 +16,4 @@ function RegisterController(Auth, $state) {
             });
         }
     };
-    vm.closeAlert = function () {
-        vm.alert.active = false;
-    };
 }

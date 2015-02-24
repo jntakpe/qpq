@@ -20,7 +20,4 @@ function LoginController($rootScope, Auth) {
             vm.password = '';
         });
     };
-    vm.closeAlert = function () {
-        vm.alert.active = false;
-    };
 }
