@@ -4,7 +4,6 @@ qpqApp.config(function ($stateProvider) {
         url: '/profile',
         resolve: {
             profile: function (Account) {
-                console.log(Account);
                 return Account.account.get();
             }
         },

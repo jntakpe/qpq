@@ -7,14 +7,13 @@ import com.github.jntakpe.qpq.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
  * Contrôlleur gérant les comptes utilisateurs
@@ -40,11 +39,23 @@ public class AccountRessource {
      * @return les donneés de l'utilisateur courant
      */
     @Timed
-    @RequestMapping(value = "/account", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/account", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<User> currentUserAccount() {
         return Optional.ofNullable(userService.findCurrentUserWithAuthorities())
                 .map(user -> new ResponseEntity<>(user, OK))
                 .orElse(new ResponseEntity<>(INTERNAL_SERVER_ERROR));
+    }
+
+    /**
+     * Modifications d'un utilisateur existant
+     *
+     * @param user données à modifier
+     * @return utilisateur modifié
+     */
+    @Timed
+    @RequestMapping(value = "/account", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> editProfile(@RequestBody User user) {
+        return new ResponseEntity<>(new User(), OK);
     }
 
     /**
@@ -55,7 +66,7 @@ public class AccountRessource {
      */
     @Timed
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<User> register(@Valid @RequestBody User user) {
+    public ResponseEntity<User> register(@RequestBody User user) {
         //FIXME send mail too
         return new ResponseEntity<>(userService.create(user), CREATED);
     }

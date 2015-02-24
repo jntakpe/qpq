@@ -1,4 +1,8 @@
 <div class="profile-body">
+    <alert ng-if="profile.alert.active" type="{{profile.alert.type}}" close="profile.alert.active = false">
+        <i class="fa" ng-class="profile.alert.type === 'success' ? 'fa-check': 'fa-warning'"></i>
+        <strong ng-if="profile.alert.type === 'danger'">Erreur ! </strong>{{profile.alert.msg}}
+    </alert>
     <div class="profile-bio">
         <form name="form" role="form" class="sky-form" ng-submit="profile.edit()" novalidate>
             <input type="hidden" id="id" name="id" ng-model="profile.myProfile.id"/>
