@@ -25,6 +25,10 @@
                 <constraints nullable="false"/>
             </column>
             <column name="activation_key" type="varchar(20)"/>
+            <column name="phone" type="varchar(15)"/>
+            <column name="website" type="varchar(255)"/>
+            <column name="company" type="varchar(255)"/>
+            <column name="location" type="varchar(255)"/>
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>

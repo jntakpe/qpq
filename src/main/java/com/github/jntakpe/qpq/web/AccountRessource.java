@@ -1,6 +1,7 @@
 package com.github.jntakpe.qpq.web;
 
 import com.codahale.metrics.annotation.Timed;
+import com.github.jntakpe.qpq.config.Constants;
 import com.github.jntakpe.qpq.domain.User;
 import com.github.jntakpe.qpq.service.UserService;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ import static org.springframework.http.HttpStatus.*;
  * @author jntakpe
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping(Constants.API_URI)
 public class AccountRessource {
 
     private static final Logger LOG = LoggerFactory.getLogger(AccountRessource.class);

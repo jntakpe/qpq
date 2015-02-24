@@ -57,6 +57,15 @@ public class User extends AbstractEntity {
     @Column(name = "activation_key", length = 20)
     private String activationKey;
 
+    @Column(length = 15)
+    private String phone;
+
+    private String website;
+
+    private String company;
+
+    private String location;
+
     @ManyToMany
     @JoinTable(name = "t_user_authority", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
@@ -121,6 +130,38 @@ public class User extends AbstractEntity {
         this.activationKey = activationKey;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public Set<Authority> getAuthorities() {
         return authorities;
     }
@@ -152,6 +193,10 @@ public class User extends AbstractEntity {
                 .append("email", email)
                 .append("activated", activated)
                 .append("activationKey", activationKey)
+                .append("phone", phone)
+                .append("website", website)
+                .append("company", company)
+                .append("location", location)
                 .append("authorities", authorities)
                 .toString();
     }
