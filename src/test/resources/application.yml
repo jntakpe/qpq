@@ -1,9 +1,4 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/qpq-test
-    username: postgres
-    password: sopra*
-    dataSourceClassName: org.postgresql.Driver
   jpa:
     openInView: false
     show-sql: true
@@ -15,6 +10,11 @@ spring:
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
       hibernate.format_sql: true
+datasource:
+  url: jdbc:postgresql://localhost:5432/qpq-test
+  username: postgres
+  password: sopra*
+  dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
 liquibase:
   enabled: false
 cache:

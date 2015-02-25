@@ -55,7 +55,7 @@ public class AccountRessource {
     @Timed
     @RequestMapping(value = "/account", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<User> editProfile(@RequestBody User user) {
-        return new ResponseEntity<>(new User(), OK);
+        return new ResponseEntity<>(userService.edit(user), OK);
     }
 
     /**

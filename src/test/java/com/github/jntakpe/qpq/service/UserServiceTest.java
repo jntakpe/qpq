@@ -18,6 +18,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.sql.DataSource;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,6 +36,8 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     public static final String USER_COUNT_QUERY = "select count(*) from t_user";
 
+    public static final String TITI = "titi";
+
     @Autowired
     private UserService userService;
 
@@ -48,7 +51,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     @BeforeClass
     public void setUp() {
         jdbcTemplate = new JdbcTemplate(dataSource);
-        userService.create(fakeUser("titi"));
+        userService.create(fakeUser(TITI));
     }
 
     @BeforeMethod
@@ -67,7 +70,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = DataIntegrityViolationException.class)
     public void testCreate_shouldFailCuzLoginTaken() {
         User failUser = fakeUser("fail");
-        failUser.setLogin("titi");
+        failUser.setLogin(TITI);
         userService.create(failUser);
     }
 
@@ -110,6 +113,31 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testFindByEmail_shouldNotFindUser() {
         assertThat(userService.findByEmail("unknow123@gmail.com").isPresent()).isFalse();
+    }
+
+    @Test
+    public void testEdit_shouldEditUser() {
+        Optional<User> titiOpt = userService.findByLogin(TITI);
+        assertThat(titiOpt.isPresent()).isTrue();
+        User user = titiOpt.get();
+        String email = "haha@mail.com";
+        user.setEmail(email);
+        String company = "Titi corp";
+        user.setCompany(company);
+        User edit = userService.edit(user);
+        assertThat(edit.getEmail()).isEqualTo(email);
+        assertThat(edit.getCompany()).isEqualTo(company);
+    }
+
+    @Test(expectedExceptions = DataIntegrityViolationException.class)
+    public void testEdit_shouldFailCuzUnicity() {
+        Optional<User> titiOpt = userService.findByLogin(TITI);
+        assertThat(titiOpt.isPresent()).isTrue();
+        User toto = userService.create(fakeUser("toto"));
+        assertThat(toto).isNotNull();
+        User titi = titiOpt.get();
+        titi.setEmail(toto.getEmail());
+        userService.edit(titi);
     }
 
     private Integer countUsers() {

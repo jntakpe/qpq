@@ -54,7 +54,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActivationKey(RandomStringUtils.randomAlphanumeric(KEY_LENGTH));
         addDefaultAuthorities(user);
-        LOG.debug("Creating user {}", user);
+        LOG.info("Creating user {}", user);
         return userRepository.save(user);
     }
 
@@ -113,6 +113,19 @@ public class UserService {
         User user = userRepository.findOne(SecurityUtils.getCurrentId());
         Hibernate.initialize(user.getAuthorities());
         return user;
+    }
+
+    /**
+     * Modification d'un utilisateur existant
+     *
+     * @param user données de l'utilisateur à modifier
+     * @return l'utilisateur modifié
+     */
+    public User edit(User user) {
+        user.setActivated(true);
+        user.setPassword(userRepository.findOne(user.getId()).getPassword());
+        LOG.info("Editing user {}", user);
+        return userRepository.save(user);
     }
 
     private void addDefaultAuthorities(User user) {
