@@ -57,7 +57,7 @@ function Auth($rootScope, $q, Principal, OAuth, Account, $state) {
                 },
                 function (err) {
                     return cb(err);
-                }.bind(this)).$promise;
+                }).$promise;
         },
         activateAccount: function (key, callback) {
             var cb = callback || angular.noop;
@@ -67,7 +67,7 @@ function Auth($rootScope, $q, Principal, OAuth, Account, $state) {
                 },
                 function (err) {
                     return cb(err);
-                }.bind(this)).$promise;
+                }).$promise;
         },
         changePassword: function (newPassword, callback) {
             var cb = callback || angular.noop;
