@@ -1,10 +1,13 @@
 qpqApp.controller('ProfileController', ProfileController);
 
-function ProfileController(Account, profile) {
+function ProfileController(Account) {
     "use strict";
 
     var vm = this;
-    vm.myProfile = profile;
+
+    vm.myProfile = Account.account.get(function (profile) {
+        vm.initialProfile = angular.copy(profile.data);
+    });
 
     vm.edit = function () {
         Account.account.save(vm.myProfile,
@@ -23,5 +26,9 @@ function ProfileController(Account, profile) {
                 };
             })
     };
+
+    vm.reset = function () {
+        vm.myProfile = angular.copy(vm.initialProfile);
+    }
 
 }

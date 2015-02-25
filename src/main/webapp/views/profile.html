@@ -6,6 +6,7 @@
     <div class="profile-bio">
         <form name="form" role="form" class="sky-form" ng-submit="profile.edit()" novalidate>
             <input type="hidden" id="id" name="id" ng-model="profile.myProfile.id"/>
+
             <div class="row">
                 <h2 class="margin-left-10">Mes informations</h2>
 
@@ -13,7 +14,7 @@
                     <div class="row">
                         <img src="/dist/img/default-profile.png" class="img-responsive md-margin-bottom-10"
                              alt="Profile img"/>
-                        <a class="btn-u btn-u-sm" href="#"><i class="fa fa-edit"></i> Modifier</a>
+                        <a class="btn-u btn-u-sm" href="#"><i class="fa fa-file-picture-o"></i> Modifier</a>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -100,13 +101,14 @@
                                        placeholder="Localisation" ng-model="profile.myProfile.location"/>
                             </label>
                         </section>
-
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <button type="submit"><i class="fa fa-edit"></i> Enregistrer</button>
-            </div>
+            <hr/>
+            <button type="button" class="btn-u btn-u-default" ng-click="profile.reset()">
+                <i class="fa fa-undo"></i> Annuler
+            </button>
+            <button type="submit" class="btn-u pull-right"><i class="fa fa-edit"></i> Enregistrer</button>
         </form>
     </div>
 </div>
