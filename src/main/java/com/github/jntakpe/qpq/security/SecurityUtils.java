@@ -26,13 +26,11 @@ public final class SecurityUtils {
     public static Long getCurrentId() {
         Authentication authentication = getAuthentification();
         SpringSecurityUser springSecurityUser;
-        Long id = null;
         if (authentication != null && authentication.getPrincipal() instanceof SpringSecurityUser) {
             springSecurityUser = (SpringSecurityUser) authentication.getPrincipal();
-            id = springSecurityUser.getId();
+            return springSecurityUser.getId();
         }
-        return id;
-
+        return null;
     }
 
     /**

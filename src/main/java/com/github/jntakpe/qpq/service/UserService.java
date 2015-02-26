@@ -51,6 +51,7 @@ public class UserService {
      */
     @Transactional
     public User create(User user) {
+        user.setLogin(user.getLogin().toLowerCase());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActivationKey(RandomStringUtils.randomAlphanumeric(KEY_LENGTH));
         addDefaultAuthorities(user);
@@ -109,8 +110,7 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public User findCurrentUserWithAuthorities() {
-        LOG.trace("Searching current user account details");
-        User user = userRepository.findOne(SecurityUtils.getCurrentId());
+        User user = findCurrentUser();
         Hibernate.initialize(user.getAuthorities());
         return user;
     }
@@ -121,11 +121,32 @@ public class UserService {
      * @param user données de l'utilisateur à modifier
      * @return l'utilisateur modifié
      */
+    @Transactional
     public User edit(User user) {
         user.setActivated(true);
-        user.setPassword(userRepository.findOne(user.getId()).getPassword());
+        user.setPassword(findCurrentUser().getPassword());
         LOG.info("Editing user {}", user);
         return userRepository.save(user);
+    }
+
+    /**
+     * Modification du mot de passe d'un utilisateur
+     * e
+     *
+     * @param passUser bean contenant le nouveau mot de passe et l'identifiant de l'utilisateur
+     * @return l'utilisateur modifié
+     */
+    @Transactional
+    public User changePassword(User passUser) {
+        User user = findCurrentUser();
+        user.setPassword(passwordEncoder.encode(passUser.getPassword()));
+        LOG.info("Editing password for user {}", user);
+        return userRepository.save(user);
+    }
+
+    private User findCurrentUser() {
+        LOG.trace("Searching current user account details");
+        return userRepository.findOne(SecurityUtils.getCurrentId());
     }
 
     private void addDefaultAuthorities(User user) {

@@ -2,12 +2,19 @@ package com.github.jntakpe.qpq.service;
 
 import com.github.jntakpe.qpq.QpqApp;
 import com.github.jntakpe.qpq.domain.User;
+import com.github.jntakpe.qpq.security.SpringSecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
@@ -18,6 +25,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,12 +53,16 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private JdbcTemplate jdbcTemplate;
 
     private Integer initCount;
 
     @BeforeClass
     public void setUp() {
+        createFakeSecurityContext();
         jdbcTemplate = new JdbcTemplate(dataSource);
         userService.create(fakeUser(TITI));
     }
@@ -140,6 +153,18 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         userService.edit(titi);
     }
 
+    @Test
+    public void changePassword_shouldChangeIt() {
+        User current = userService.findCurrentUserWithAuthorities();
+        String initPass = current.getPassword();
+        String newPassword = "tototiti";
+        User passUser = new User();
+        passUser.setPassword(newPassword);
+        User user = userService.changePassword(passUser);
+        assertThat(passwordEncoder.matches(newPassword, initPass)).isFalse();
+        assertThat(passwordEncoder.matches(newPassword, user.getPassword())).isTrue();
+    }
+
     private Integer countUsers() {
         return jdbcTemplate.queryForObject(USER_COUNT_QUERY, Integer.class);
     }
@@ -152,6 +177,16 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         fakeUser.setEmail(username + "@mail.com");
         fakeUser.setPassword("password");
         return fakeUser;
+    }
+
+    private void createFakeSecurityContext() {
+        SecurityContext emptyContext = SecurityContextHolder.createEmptyContext();
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        SpringSecurityUser principal = new SpringSecurityUser(1L, "fakeuser", "", authorities);
+        emptyContext.setAuthentication(new UsernamePasswordAuthenticationToken(principal, "", authorities));
+        SecurityContextHolder.setContext(emptyContext);
     }
 
 }

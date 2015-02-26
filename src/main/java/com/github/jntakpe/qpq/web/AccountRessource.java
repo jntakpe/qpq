@@ -59,6 +59,19 @@ public class AccountRessource {
     }
 
     /**
+     * Modification du mot de passe
+     *
+     * @param user bean wrappant le mot de passe
+     * @return {@code HttpStatus.OK} si le changement de mot de passe a été effectué
+     */
+    @Timed
+    @RequestMapping(value = "/account/change_password", method = RequestMethod.POST)
+    public ResponseEntity editPassword(@RequestBody User user) {
+        userService.changePassword(user);
+        return new ResponseEntity(OK);
+    }
+
+    /**
      * Enregistrement d'un nouvel utilisateur
      *
      * @param user utilisateur à créer
