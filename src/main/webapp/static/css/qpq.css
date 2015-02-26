@@ -34,6 +34,14 @@
     border: 0;
 }
 
+.profile .profile-bio {
+    padding-top: 0;
+}
+
+.profile .profile-bio h2 {
+    font-weight: 400;
+}
+
 .profile .profile-bio .reg-page {
     border: 0;
     box-shadow: none;

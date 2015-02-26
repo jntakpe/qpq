@@ -120,45 +120,49 @@
     <hr/>
     <div class="panel panel-profile">
         <div class="panel-heading overflow-h">
-            <h2 class="panel-title heading-sm pull-left"><i class="fa fa-mortar-board"></i> Education</h2>
-            <a href="#"><i class="fa fa-cog pull-right"></i></a>
+            <h2 class="panel-title heading-sm pull-left"><i class="fa fa-user-secret"></i> Changer de mot de passe</h2>
         </div>
         <div class="panel-body">
-            <ul class="timeline-v2 timeline-me">
-                <li>
-                    <time datetime="" class="cbp_tmtime"><span>Bachelor of IT</span> <span>2003 - 2000</span></time>
-                    <i class="cbp_tmicon rounded-x hidden-xs"></i>
+            <form name="form" role="form" class="sky-form" ng-submit="profile.editPassword()" novalidate>
+                <div class="col-md-10">
+                    <section class="col col-6">
+                        <label class="input"
+                               ng-class="{'state-error': (form.$submitted ||form.password.$touched) && form.password.$invalid}">
+                            <i class="icon-prepend fa fa-lock"></i>
+                            <input id="password" name="password" class="form-control margin-top-20" type="password"
+                                   placeholder="Mot de passe" ng-model="profile.password.password" minlength="5"
+                                   maxlength="100"/>
 
-                    <div class="cbp_tmlabel">
-                        <h2>Harvard University</h2>
+                            <div ng-messages="(form.$submitted || form.password.$touched) && form.password.$error"
+                                 class="note note-error">
+                                <div ng-message="minlength">Le mot de passe doit au minimum contenir 5 caractères.
+                                </div>
+                            </div>
+                        </label>
 
-                        <p>Winter purslane courgette pumpkin quandong komatsuna fennel green bean cucumber watercress.
-                            Peasprouts wattle seed rutabaga okra yarrow cress avocado grape.</p>
-                    </div>
-                </li>
-                <li>
-                    <time datetime="" class="cbp_tmtime"><span>Web Design</span> <span>1997 - 2000</span></time>
-                    <i class="cbp_tmicon rounded-x hidden-xs"></i>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"
+                               ng-class="{'state-error': (form.$submitted || form.confirmPassword.$touched) && form.confirmPassword.$invalid}">
+                            <i class="icon-prepend fa fa-lock"></i>
+                            <input id="confirm-password" name="confirmPassword" class="form-control margin-top-20"
+                                   placeholder="Confirmation" type="password" maxlength="100"
+                                   ng-model="profile.password.confirmPassword"
+                                   compare-to-validator="profile.password.password"/>
 
-                    <div class="cbp_tmlabel">
-                        <h2>Imperial College London</h2>
-
-                        <p>Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu
-                            courgette lettuce.</p>
-                    </div>
-                </li>
-                <li>
-                    <time datetime="" class="cbp_tmtime"><span>High School</span> <span>1988 - 1997</span></time>
-                    <i class="cbp_tmicon rounded-x hidden-xs"></i>
-
-                    <div class="cbp_tmlabel">
-                        <h2>Chicago High School</h2>
-
-                        <p>Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu
-                            courgette lettuce. Celery coriander bitterleaf epazote radicchio shallot.</p>
-                    </div>
-                </li>
-            </ul>
+                            <div ng-messages="(form.$submitted || form.confirmPassword.$touched) && form.confirmPassword.$error"
+                                 class="note note-error">
+                                <div ng-message="compareTo">Les mots de passe ne correspondent pas.</div>
+                            </div>
+                        </label>
+                    </section>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn-u pull-right margin-top-20">
+                        <i class="fa fa-edit"></i> Changer
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
