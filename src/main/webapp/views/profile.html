@@ -3,112 +3,162 @@
         <i class="fa" ng-class="profile.alert.type === 'success' ? 'fa-check': 'fa-warning'"></i>
         <strong ng-if="profile.alert.type === 'danger'">Erreur ! </strong>{{profile.alert.msg}}
     </alert>
-    <div class="profile-bio">
-        <form name="form" role="form" class="sky-form" ng-submit="profile.edit()" novalidate>
-            <input type="hidden" id="id" name="id" ng-model="profile.myProfile.id"/>
+    <div class="profile-bio panel panel-profile">
+        <div class="panel-heading overflow-h">
+            <h2 class="panel-title heading-sm pull-left"><i class="fa fa-user"></i> Mon profil</h2>
+        </div>
 
-            <div class="row">
-                <h2 class="margin-left-10">Mes informations</h2>
+        <div class="panel-body">
+            <form name="form" role="form" class="sky-form" ng-submit="profile.edit()" novalidate>
+                <input type="hidden" id="id" name="id" ng-model="profile.myProfile.id"/>
 
-                <div class="col-md-3">
-                    <div class="row">
-                        <img src="/dist/img/default-profile.png" class="img-responsive md-margin-bottom-10"
-                             alt="Profile img"/>
-                        <a class="btn-u btn-u-sm" href="#"><i class="fa fa-file-picture-o"></i> Modifier</a>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <img src="/dist/img/default-profile.png" class="img-responsive md-margin-bottom-10"
+                                 alt="Profile img"/>
+                            <a class="btn-u btn-u-sm" href="#"><i class="fa fa-file-picture-o"></i> Modifier</a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="input"
+                                       ng-class="{'state-error': (form.$submitted || form.login.$touched) && form.login.$invalid}">
+                                    <i class="icon-prepend fa fa-sign-in"></i>
+                                    <input id="login" name="login" class="form-control" type="text"
+                                           placeholder="Login" ng-model="profile.myProfile.login"
+                                           available-validator="/api/register/login" form-id="profile.myProfile.id"
+                                           ng-model-options="{ updateOn: 'blur' }"/>
+
+                                    <div ng-messages="(form.$submitted || form.login.$touched) && form.login.$error"
+                                         class="note note-error">
+                                        <div ng-message="available">Ce login est déjà utilisé.</div>
+                                    </div>
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label class="input"
+                                       ng-class="{'state-error': (form.$submitted || form.email.$touched) && form.email.$invalid}">
+                                    <i class="icon-prepend fa fa-envelope"></i>
+                                    <input id="email" name="email" class="form-control" type="email"
+                                           placeholder="Email" ng-model="profile.myProfile.email"
+                                           available-validator="/api/register/email" form-id="profile.myProfile.id"
+                                           ng-model-options="{ updateOn: 'blur' }"/>
+
+                                    <div ng-messages="(form.$submitted || form.email.$touched) && form.email.$error"
+                                         class="note note-error">
+                                        <div ng-message="email">Veuillez renseigner une adresse mail valide.</div>
+                                        <div ng-message="available">Cette adresse mail est déjà utilisée.</div>
+                                    </div>
+                                </label>
+                            </section>
+                        </div>
+
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-user"></i>
+                                    <input id="first-name" name="first-name" class="form-control margin-top-20"
+                                           type="text"
+                                           placeholder="Prénom" ng-model="profile.myProfile.firstName" maxlength="50"/>
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-user"></i>
+                                    <input id="last-name" name="last-name" class="form-control margin-top-20"
+                                           type="text"
+                                           placeholder="Nom" ng-model="profile.myProfile.lastName" maxlength="50"/>
+                                </label>
+                            </section>
+                        </div>
+
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-phone"></i>
+                                    <input id="phone" name="phone" class="form-control margin-top-20" type="text"
+                                           placeholder="Téléphone" ng-model="profile.myProfile.phone"/>
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-sitemap"></i>
+                                    <input id="website" name="website" class="form-control margin-top-20" type="text"
+                                           placeholder="Site web" ng-model="profile.myProfile.website"/>
+                                </label>
+                            </section>
+                        </div>
+
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-bank"></i>
+                                    <input id="company" name="company" class="form-control margin-top-20" type="text"
+                                           placeholder="Entreprise" ng-model="profile.myProfile.company"/>
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label class="input">
+                                    <i class="icon-prepend fa fa-map-marker"></i>
+                                    <input id="location" name="location" class="form-control margin-top-20" type="text"
+                                           placeholder="Localisation" ng-model="profile.myProfile.location"/>
+                                </label>
+                            </section>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-9">
-                    <div class="row">
-                        <section class="col col-6">
-                            <label class="input"
-                                   ng-class="{'state-error': (form.$submitted || form.login.$touched) && form.login.$invalid}">
-                                <i class="icon-prepend fa fa-sign-in"></i>
-                                <input id="login" name="login" class="form-control" type="text"
-                                       placeholder="Login" ng-model="profile.myProfile.login"
-                                       available-validator="/api/register/login" form-id="profile.myProfile.id"
-                                       ng-model-options="{ updateOn: 'blur' }"/>
+                <hr/>
+                <button type="button" class="btn-u btn-u-default" ng-click="profile.reset()">
+                    <i class="fa fa-undo"></i> Annuler
+                </button>
+                <button type="submit" class="btn-u pull-right"><i class="fa fa-edit"></i> Enregistrer</button>
+            </form>
+        </div>
+    </div>
+    <hr/>
+    <div class="panel panel-profile">
+        <div class="panel-heading overflow-h">
+            <h2 class="panel-title heading-sm pull-left"><i class="fa fa-mortar-board"></i> Education</h2>
+            <a href="#"><i class="fa fa-cog pull-right"></i></a>
+        </div>
+        <div class="panel-body">
+            <ul class="timeline-v2 timeline-me">
+                <li>
+                    <time datetime="" class="cbp_tmtime"><span>Bachelor of IT</span> <span>2003 - 2000</span></time>
+                    <i class="cbp_tmicon rounded-x hidden-xs"></i>
 
-                                <div ng-messages="(form.$submitted || form.login.$touched) && form.login.$error"
-                                     class="note note-error">
-                                    <div ng-message="available">Ce login est déjà utilisé.</div>
-                                </div>
-                            </label>
-                        </section>
-                        <section class="col col-6">
-                            <label class="input"
-                                   ng-class="{'state-error': (form.$submitted || form.email.$touched) && form.email.$invalid}">
-                                <i class="icon-prepend fa fa-envelope"></i>
-                                <input id="email" name="email" class="form-control" type="email"
-                                       placeholder="Email" ng-model="profile.myProfile.email"
-                                       available-validator="/api/register/email" form-id="profile.myProfile.id"
-                                       ng-model-options="{ updateOn: 'blur' }"/>
+                    <div class="cbp_tmlabel">
+                        <h2>Harvard University</h2>
 
-                                <div ng-messages="(form.$submitted || form.email.$touched) && form.email.$error"
-                                     class="note note-error">
-                                    <div ng-message="email">Veuillez renseigner une adresse mail valide.</div>
-                                    <div ng-message="available">Cette adresse mail est déjà utilisée.</div>
-                                </div>
-                            </label>
-                        </section>
+                        <p>Winter purslane courgette pumpkin quandong komatsuna fennel green bean cucumber watercress.
+                            Peasprouts wattle seed rutabaga okra yarrow cress avocado grape.</p>
                     </div>
+                </li>
+                <li>
+                    <time datetime="" class="cbp_tmtime"><span>Web Design</span> <span>1997 - 2000</span></time>
+                    <i class="cbp_tmicon rounded-x hidden-xs"></i>
 
-                    <div class="row">
-                        <section class="col col-6">
-                            <label class="input">
-                                <i class="icon-prepend fa fa-user"></i>
-                                <input id="first-name" name="first-name" class="form-control margin-top-20" type="text"
-                                       placeholder="Prénom" ng-model="profile.myProfile.firstName" maxlength="50"/>
-                            </label>
-                        </section>
-                        <section class="col col-6">
-                            <label class="input">
-                                <i class="icon-prepend fa fa-user"></i>
-                                <input id="last-name" name="last-name" class="form-control margin-top-20" type="text"
-                                       placeholder="Nom" ng-model="profile.myProfile.lastName" maxlength="50"/>
-                            </label>
-                        </section>
-                    </div>
+                    <div class="cbp_tmlabel">
+                        <h2>Imperial College London</h2>
 
-                    <div class="row">
-                        <section class="col col-6">
-                            <label class="input">
-                                <i class="icon-prepend fa fa-phone"></i>
-                                <input id="phone" name="phone" class="form-control margin-top-20" type="text"
-                                       placeholder="Téléphone" ng-model="profile.myProfile.phone"/>
-                            </label>
-                        </section>
-                        <section class="col col-6">
-                            <label class="input">
-                                <i class="icon-prepend fa fa-sitemap"></i>
-                                <input id="website" name="website" class="form-control margin-top-20" type="text"
-                                       placeholder="Site web" ng-model="profile.myProfile.website"/>
-                            </label>
-                        </section>
+                        <p>Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu
+                            courgette lettuce.</p>
                     </div>
+                </li>
+                <li>
+                    <time datetime="" class="cbp_tmtime"><span>High School</span> <span>1988 - 1997</span></time>
+                    <i class="cbp_tmicon rounded-x hidden-xs"></i>
 
-                    <div class="row">
-                        <section class="col col-6">
-                            <label class="input">
-                                <i class="icon-prepend fa fa-bank"></i>
-                                <input id="company" name="company" class="form-control margin-top-20" type="text"
-                                       placeholder="Entreprise" ng-model="profile.myProfile.company"/>
-                            </label>
-                        </section>
-                        <section class="col col-6">
-                            <label class="input">
-                                <i class="icon-prepend fa fa-map-marker"></i>
-                                <input id="location" name="location" class="form-control margin-top-20" type="text"
-                                       placeholder="Localisation" ng-model="profile.myProfile.location"/>
-                            </label>
-                        </section>
+                    <div class="cbp_tmlabel">
+                        <h2>Chicago High School</h2>
+
+                        <p>Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu
+                            courgette lettuce. Celery coriander bitterleaf epazote radicchio shallot.</p>
                     </div>
-                </div>
-            </div>
-            <hr/>
-            <button type="button" class="btn-u btn-u-default" ng-click="profile.reset()">
-                <i class="fa fa-undo"></i> Annuler
-            </button>
-            <button type="submit" class="btn-u pull-right"><i class="fa fa-edit"></i> Enregistrer</button>
-        </form>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
