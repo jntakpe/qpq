@@ -187,7 +187,6 @@ public class User extends AbstractEntity {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("login", login)
-                .append("password", password)
                 .append("firstName", firstName)
                 .append("lastName", lastName)
                 .append("email", email)
