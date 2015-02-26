@@ -13,14 +13,12 @@ function Account($resource) {
                 }
             }
         }),
-        activate: function ($resource) {
+        activate: function () {
             return $resource('api/activate', {}, {
                 'get': {method: 'GET', params: {}, isArray: false}
             });
         },
-        change: function ($resource) {
-            return $resource('api/account/change_password', {}, {});
-        },
+        change: $resource('api/account/change_password', {}, {}),
         register: $resource('api/register', {}, {})
     }
 }

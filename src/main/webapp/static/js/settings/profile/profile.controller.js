@@ -24,11 +24,30 @@ function ProfileController(Account) {
                     msg: 'Echec lors de l\'enregistrement du profil',
                     type: 'danger'
                 };
-            })
+            });
     };
 
     vm.reset = function () {
         vm.myProfile = angular.copy(vm.initialProfile);
-    }
+    };
 
+    vm.password = {};
+
+    vm.editPassword = function () {
+        vm.password.id = vm.myProfile.id;
+        Account.change.save(vm.password,
+            function () {
+                vm.alert = {
+                    active: true,
+                    msg: 'Changement de mot de passe effectué',
+                    type: 'success'
+                }
+            }, function () {
+                vm.alert = {
+                    active: true,
+                    msg: 'Echec lors de la modification du mot de passe',
+                    type: 'danger'
+                }
+            });
+    }
 }
