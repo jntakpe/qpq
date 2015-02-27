@@ -1,6 +1,6 @@
 qpqApp.factory('Account', Account);
 
-function Account($resource) {
+function Account($resource, $http) {
     "use strict";
 
     return {
@@ -19,6 +19,9 @@ function Account($resource) {
             });
         },
         change: $resource('api/account/change_password', {}, {}),
+        valid: function (password) {
+            return $http.get('api/account/valid_password', {params: {password: password}});
+        },
         register: $resource('api/register', {}, {})
-    }
+    };
 }

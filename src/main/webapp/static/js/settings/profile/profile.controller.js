@@ -9,6 +9,8 @@ function ProfileController(Account) {
         vm.initialProfile = angular.copy(profile.data);
     });
 
+    vm.oldPasswordValid = false;
+
     vm.edit = function () {
         Account.account.save(vm.myProfile,
             function (response) {
@@ -49,5 +51,14 @@ function ProfileController(Account) {
                     type: 'danger'
                 }
             });
-    }
+    };
+
+    vm.validOld = function () {
+        Account.valid(vm.password.oldPassword).success(function () {
+            vm.oldPasswordValid = true;
+        }).error(function () {
+            vm.oldPasswordValid = false;
+        })
+    };
+
 }

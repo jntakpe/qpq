@@ -124,43 +124,71 @@
         </div>
         <div class="panel-body">
             <form name="form" role="form" class="sky-form" ng-submit="profile.editPassword()" novalidate>
-                <div class="col-md-10">
-                    <section class="col col-6">
-                        <label class="input"
-                               ng-class="{'state-error': (form.$submitted ||form.password.$touched) && form.password.$invalid}">
-                            <i class="icon-prepend fa fa-lock"></i>
-                            <input id="password" name="password" class="form-control margin-top-20" type="password"
-                                   placeholder="Mot de passe" ng-model="profile.password.password" minlength="5"
-                                   maxlength="100"/>
+                <div ng-if="!profile.oldPassValid">
+                    <div class="col-md-5 col-md-offset-2">
+                        <section>
+                            <label class="label">Mot de passe</label>
+                            <label class="input"
+                                   ng-class="{'state-error': (form.$submitted ||form.password.$touched) && form.password.$invalid}">
+                                <i class="icon-prepend fa fa-lock"></i>
+                                <input id="oldPassword" name="oldPassword" class="form-control" type="password"
+                                       placeholder="Mot de passe" ng-model="profile.password.oldPassword" minlength="5"
+                                       maxlength="100"/>
 
-                            <div ng-messages="(form.$submitted || form.password.$touched) && form.password.$error"
-                                 class="note note-error">
-                                <div ng-message="minlength">Le mot de passe doit au minimum contenir 5 caractères.
+                                <div ng-messages="(form.$submitted || form.password.$touched) && form.password.$error"
+                                     class="note note-error">
+                                    <div ng-message="minlength">Le mot de passe doit au minimum contenir 5 caractères.
+                                    </div>
                                 </div>
-                            </div>
-                        </label>
-
-                    </section>
-                    <section class="col col-6">
-                        <label class="input"
-                               ng-class="{'state-error': (form.$submitted || form.confirmPassword.$touched) && form.confirmPassword.$invalid}">
-                            <i class="icon-prepend fa fa-lock"></i>
-                            <input id="confirm-password" name="confirmPassword" class="form-control margin-top-20"
-                                   placeholder="Confirmation" type="password" maxlength="100"
-                                   ng-model="profile.password.confirmPassword"
-                                   compare-to-validator="profile.password.password"/>
-
-                            <div ng-messages="(form.$submitted || form.confirmPassword.$touched) && form.confirmPassword.$error"
-                                 class="note note-error">
-                                <div ng-message="compareTo">Les mots de passe ne correspondent pas.</div>
-                            </div>
-                        </label>
-                    </section>
+                            </label>
+                        </section>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn-u pull-right margin-top-30" ng-click="profile.validOld()">
+                            <i class="fa fa-refresh"></i> Valider
+                        </button>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn-u pull-right margin-top-20">
-                        <i class="fa fa-edit"></i> Changer
-                    </button>
+                <div ng-if="profile.oldPassValid">
+                    <div class="col-md-10">
+                        <section class="col col-6">
+                            <label class="label">Mot de passe</label>
+                            <label class="input"
+                                   ng-class="{'state-error': (form.$submitted ||form.password.$touched) && form.password.$invalid}">
+                                <i class="icon-prepend fa fa-lock"></i>
+                                <input id="password" name="password" class="form-control" type="password"
+                                       placeholder="Mot de passe" ng-model="profile.password.password" minlength="5"
+                                       maxlength="100"/>
+
+                                <div ng-messages="(form.$submitted || form.password.$touched) && form.password.$error"
+                                     class="note note-error">
+                                    <div ng-message="minlength">Le mot de passe doit au minimum contenir 5 caractères.
+                                    </div>
+                                </div>
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="label">Confirmation</label>
+                            <label class="input"
+                                   ng-class="{'state-error': (form.$submitted || form.confirmPassword.$touched) && form.confirmPassword.$invalid}">
+                                <i class="icon-prepend fa fa-lock"></i>
+                                <input id="confirm-password" name="confirmPassword" class="form-control"
+                                       placeholder="Confirmation" type="password" maxlength="100"
+                                       ng-model="profile.password.confirmPassword"
+                                       compare-to-validator="profile.password.password"/>
+
+                                <div ng-messages="(form.$submitted || form.confirmPassword.$touched) && form.confirmPassword.$error"
+                                     class="note note-error">
+                                    <div ng-message="compareTo">Les mots de passe ne correspondent pas.</div>
+                                </div>
+                            </label>
+                        </section>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn-u pull-right margin-top-30">
+                            <i class="fa fa-edit"></i> Changer
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
