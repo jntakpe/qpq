@@ -72,6 +72,18 @@ public class AccountRessource {
     }
 
     /**
+     * Vérifie que le mot de passe passé en paramètre correspond à celui de l'utilisateur courant
+     *
+     * @param password mot de passe passé à vérifier
+     * @return {@code HttpStatus.OK} si le mot de passe est valide
+     */
+    @Timed
+    @RequestMapping(value = "/account/valid_password", method = RequestMethod.GET)
+    public ResponseEntity validPassword(@RequestParam String password) {
+        return new ResponseEntity(userService.validPassword(password) ? OK : FORBIDDEN);
+    }
+
+    /**
      * Enregistrement d'un nouvel utilisateur
      *
      * @param user utilisateur à créer

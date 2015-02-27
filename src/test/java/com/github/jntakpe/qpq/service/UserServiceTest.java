@@ -47,6 +47,8 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     public static final String TITI = "titi";
 
+    public static final String PASSWORD = "password";
+
     @Autowired
     private UserService userService;
 
@@ -77,7 +79,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         User user = userService.create(fakeUser("toto"));
         assertThat(user).isNotNull();
         assertThat(countUsers()).isEqualTo(initCount + 1);
-        assertThat(user.getPassword()).isNotEqualTo("password");
+        assertThat(user.getPassword()).isNotEqualTo(PASSWORD);
     }
 
     @Test(expectedExceptions = DataIntegrityViolationException.class)
@@ -163,6 +165,23 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         User user = userService.changePassword(passUser);
         assertThat(passwordEncoder.matches(newPassword, initPass)).isFalse();
         assertThat(passwordEncoder.matches(newPassword, user.getPassword())).isTrue();
+        cleanUpPass();
+    }
+
+    private void cleanUpPass() {
+        User cleanUpUser = new User();
+        cleanUpUser.setPassword(PASSWORD);
+        userService.changePassword(cleanUpUser);
+    }
+
+    @Test
+    public void validPassword_shouldMatch() {
+        assertThat(userService.validPassword(PASSWORD)).isTrue();
+    }
+
+    @Test
+    public void validPassword_shouldNotMatch() {
+        assertThat(userService.validPassword("totopassword")).isFalse();
     }
 
     private Integer countUsers() {
@@ -175,7 +194,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         fakeUser.setFirstName(username);
         fakeUser.setLastName(username);
         fakeUser.setEmail(username + "@mail.com");
-        fakeUser.setPassword("password");
+        fakeUser.setPassword(PASSWORD);
         return fakeUser;
     }
 

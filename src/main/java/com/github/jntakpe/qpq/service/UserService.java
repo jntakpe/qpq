@@ -131,7 +131,6 @@ public class UserService {
 
     /**
      * Modification du mot de passe d'un utilisateur
-     * e
      *
      * @param passUser bean contenant le nouveau mot de passe et l'identifiant de l'utilisateur
      * @return l'utilisateur modifié
@@ -142,6 +141,17 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(passUser.getPassword()));
         LOG.info("Editing password for user {}", user);
         return userRepository.save(user);
+    }
+
+    /**
+     * Indique si le mot de passe passé en paramètre correspond au mot de passe existant
+     *
+     * @param password mot de passe
+     * @return true si les mots de passe correspondent
+     */
+    @Transactional
+    public boolean validPassword(String password) {
+        return passwordEncoder.matches(password, findCurrentUser().getPassword());
     }
 
     private User findCurrentUser() {
