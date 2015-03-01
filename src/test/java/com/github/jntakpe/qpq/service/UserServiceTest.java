@@ -8,6 +8,7 @@ import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -162,15 +163,26 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         String newPassword = "tototiti";
         User passUser = new User();
         passUser.setPassword(newPassword);
+        passUser.setOldPassword(PASSWORD);
+        assertThat(passwordEncoder.matches(PASSWORD, current.getPassword()));
         User user = userService.changePassword(passUser);
         assertThat(passwordEncoder.matches(newPassword, initPass)).isFalse();
         assertThat(passwordEncoder.matches(newPassword, user.getPassword())).isTrue();
         cleanUpPass();
     }
 
+    @Test(expectedExceptions = BadCredentialsException.class)
+    public void changePassword_shouldFailCuzWrongRetypePass() {
+        User passUser = new User();
+        passUser.setPassword(PASSWORD);
+        passUser.setOldPassword("somewrongretypedpass");
+        userService.changePassword(passUser);
+    }
+
     private void cleanUpPass() {
         User cleanUpUser = new User();
         cleanUpUser.setPassword(PASSWORD);
+        cleanUpUser.setOldPassword("tototiti");
         userService.changePassword(cleanUpUser);
     }
 

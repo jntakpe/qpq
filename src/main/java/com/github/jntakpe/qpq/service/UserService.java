@@ -10,6 +10,7 @@ import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -138,6 +139,9 @@ public class UserService {
     @Transactional
     public User changePassword(User passUser) {
         User user = findCurrentUser();
+        if (!passwordEncoder.matches(passUser.getOldPassword(), user.getPassword())) {
+            throw new BadCredentialsException("Passwords doesn't match");
+        }
         user.setPassword(passwordEncoder.encode(passUser.getPassword()));
         LOG.info("Editing password for user {}", user);
         return userRepository.save(user);

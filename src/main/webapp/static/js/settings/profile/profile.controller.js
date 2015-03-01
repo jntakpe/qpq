@@ -37,20 +37,24 @@ function ProfileController(Account) {
 
     vm.editPassword = function () {
         vm.password.id = vm.myProfile.id;
-        Account.change.save(vm.password,
-            function () {
-                vm.alert = {
-                    active: true,
-                    msg: 'Changement de mot de passe effectué',
-                    type: 'success'
-                };
-            }, function () {
-                vm.alert = {
-                    active: true,
-                    msg: 'Echec lors de la modification du mot de passe',
-                    type: 'danger'
-                };
-            });
+        if (vm.showChangeForm) {
+            Account.change.save(vm.password,
+                function () {
+                    vm.showChangeForm = false;
+                    vm.password = {};
+                    vm.alert = {
+                        active: true,
+                        msg: 'Changement de mot de passe effectué',
+                        type: 'success'
+                    };
+                }, function () {
+                    vm.alert = {
+                        active: true,
+                        msg: 'Echec lors de la modification du mot de passe',
+                        type: 'danger'
+                    };
+                });
+        }
     };
 
     vm.switch = function (form) {

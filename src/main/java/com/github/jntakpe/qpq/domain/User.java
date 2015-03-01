@@ -72,6 +72,9 @@ public class User extends AbstractEntity {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Authority> authorities = new HashSet<>();
 
+    @Transient
+    private String oldPassword;
+
     public String getLogin() {
         return login;
     }
@@ -168,6 +171,14 @@ public class User extends AbstractEntity {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 
     @Override
