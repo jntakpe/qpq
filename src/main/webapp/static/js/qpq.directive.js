@@ -7,13 +7,14 @@ function compareTo() {
     "use strict";
 
     return {
+        restrict: 'A',
         require: 'ngModel',
         scope: {
             other: '=compareToValidator'
         },
         link: function ($scope, element, attributes, ngModel) {
-            ngModel.$validators.compareTo = function (modelValue) {
-                return modelValue === $scope.other;
+            ngModel.$validators.compareTo = function (value) {
+                return value === $scope.other;
             };
 
             $scope.$watch('other', function () {
@@ -24,7 +25,10 @@ function compareTo() {
 }
 
 function available($http) {
+    "use strict";
+
     return {
+        restrict: 'A',
         require: 'ngModel',
         scope: {
             url: '@availableValidator',
@@ -36,19 +40,23 @@ function available($http) {
                 if ($scope.id) {
                     baseUrl += '&id=' + $scope.id;
                 }
-                return $http.get(baseUrl);
+                if (value) {
+                    return $http.get(baseUrl);
+                }
             };
         }
     };
 }
 
 function autofocus($timeout) {
+    "use strict";
+
     return {
         restrict: 'A',
         link: function ($scope, element) {
             $timeout(function () {
                 element[0].focus();
-            })
+            });
         }
-    }
+    };
 }

@@ -9,7 +9,7 @@ function ProfileController(Account) {
         vm.initialProfile = angular.copy(profile.data);
     });
 
-    vm.oldPasswordValid = false;
+    vm.showChangeForm = false;
 
     vm.edit = function () {
         Account.account.save(vm.myProfile,
@@ -19,7 +19,7 @@ function ProfileController(Account) {
                     active: true,
                     msg: 'Enregistrement du profil effectué',
                     type: 'success'
-                }
+                };
             }, function () {
                 vm.alert = {
                     active: true,
@@ -43,22 +43,23 @@ function ProfileController(Account) {
                     active: true,
                     msg: 'Changement de mot de passe effectué',
                     type: 'success'
-                }
+                };
             }, function () {
                 vm.alert = {
                     active: true,
                     msg: 'Echec lors de la modification du mot de passe',
                     type: 'danger'
-                }
+                };
             });
     };
 
-    vm.validOld = function () {
-        Account.valid(vm.password.oldPassword).success(function () {
-            vm.oldPasswordValid = true;
+    vm.switch = function (form) {
+        var formPass = form.oldPassword, oldPass = formPass.$modelValue || formPass.$viewValue;
+        Account.valid(oldPass).success(function () {
+            vm.showChangeForm = true;
         }).error(function () {
-            vm.oldPasswordValid = false;
-        })
+            formPass.$setValidity('match', false);
+        });
     };
 
 }

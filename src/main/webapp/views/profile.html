@@ -29,7 +29,7 @@
                                     <input id="login" name="login" class="form-control" type="text"
                                            placeholder="Login" ng-model="profile.myProfile.login"
                                            available-validator="/api/register/login" form-id="profile.myProfile.id"
-                                           ng-model-options="{ updateOn: 'blur' }"/>
+                                           ng-model-options="{ updateOn: 'blur'}"/>
 
                                     <div ng-messages="(form.$submitted || form.login.$touched) && form.login.$error"
                                          class="note note-error">
@@ -44,7 +44,7 @@
                                     <input id="email" name="email" class="form-control" type="email"
                                            placeholder="Email" ng-model="profile.myProfile.email"
                                            available-validator="/api/register/email" form-id="profile.myProfile.id"
-                                           ng-model-options="{ updateOn: 'blur' }"/>
+                                           ng-model-options="{ updateOn: 'blur'}"/>
 
                                     <div ng-messages="(form.$submitted || form.email.$touched) && form.email.$error"
                                          class="note note-error">
@@ -124,19 +124,22 @@
         </div>
         <div class="panel-body">
             <form name="form" role="form" class="sky-form" ng-submit="profile.editPassword()" novalidate>
-                <div ng-if="!profile.oldPassValid">
+                <div ng-if="!profile.showChangeForm">
                     <div class="col-md-5 col-md-offset-2">
                         <section>
-                            <label class="label">Mot de passe</label>
+                            <label class="label">Vérifier le mot de passe actuel</label>
                             <label class="input"
-                                   ng-class="{'state-error': (form.$submitted ||form.password.$touched) && form.password.$invalid}">
+                                   ng-class="{'state-error': (form.$submitted ||form.oldPassword.$touched) && form.oldPassword.$invalid}">
                                 <i class="icon-prepend fa fa-lock"></i>
                                 <input id="oldPassword" name="oldPassword" class="form-control" type="password"
-                                       placeholder="Mot de passe" ng-model="profile.password.oldPassword" minlength="5"
-                                       maxlength="100"/>
+                                       placeholder="Vérifier le mot de passe actuel" minlength="5" maxlength="100"
+                                       ng-model="profile.password.oldPassword"
+                                       ng-model-options="{ updateOn: 'blur'}"
+                                       password-validator="api/account/valid_password"/>
 
-                                <div ng-messages="(form.$submitted || form.password.$touched) && form.password.$error"
+                                <div ng-messages="(form.$submitted || form.oldPassword.$touched) && form.oldPassword.$error"
                                      class="note note-error">
+                                    <div ng-message="match">Le mot de passe renseigné est incorrect</div>
                                     <div ng-message="minlength">Le mot de passe doit au minimum contenir 5 caractères.
                                     </div>
                                 </div>
@@ -144,12 +147,12 @@
                         </section>
                     </div>
                     <div class="col-md-2">
-                        <button type="button" class="btn-u pull-right margin-top-30" ng-click="profile.validOld()">
+                        <button type="button" class="btn-u pull-right margin-top-30" ng-click="profile.switch(form)">
                             <i class="fa fa-refresh"></i> Valider
                         </button>
                     </div>
                 </div>
-                <div ng-if="profile.oldPassValid">
+                <div ng-if="profile.showChangeForm">
                     <div class="col-md-10">
                         <section class="col col-6">
                             <label class="label">Mot de passe</label>
