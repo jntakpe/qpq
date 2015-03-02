@@ -16,9 +16,11 @@ function MetricsController($scope, Metrics) {
     $scope.$watch(
         angular.bind(vm, function () {
             return vm.data;
-        }), function (stats) {
+        }),
+        function (stats) {
             vm.stats = Metrics.extractStats(stats);
-        });
+        }
+    );
 
     vm.refresh();
 }

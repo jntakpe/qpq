@@ -14,6 +14,6 @@ function HomeController($stateParams) {
             active: true,
             msg: 'Accès à la ressource interdit',
             type: 'danger'
-        }
+        };
     }
 }

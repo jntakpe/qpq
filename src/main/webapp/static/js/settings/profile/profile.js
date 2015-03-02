@@ -1,4 +1,6 @@
 qpqApp.config(function ($stateProvider) {
+    "use strict";
+
     $stateProvider.state('profile', {
         parent: 'settings',
         url: '/profile',

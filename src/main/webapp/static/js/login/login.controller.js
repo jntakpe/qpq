@@ -1,6 +1,8 @@
 qpqApp.controller('LoginController', LoginController);
 
 function LoginController($rootScope, Auth) {
+    "use strict";
+
     var vm = this;
     vm.alert = {
         msg: 'Identifiants invalides.',

@@ -1,6 +1,8 @@
 qpqApp.controller('RegisterController', RegisterController);
 
 function RegisterController(Auth, $state) {
+    "use strict";
+
     var vm = this;
     vm.user = {};
     vm.alert = {
